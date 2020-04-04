@@ -1,0 +1,137 @@
+- Class: meta
+  Course: Stats 20
+  Lesson: Review - Apply Family of Functions
+  Author: Bo Pang
+  Type: Standard
+  Organization: UCLA
+  Version: 2.4.4
+
+# Questions go here:
+
+
+- Class: cmd_question
+  Output: |-
+    An R object, L, is given in the workspace. Use str() to examine the structure of L.
+  CorrectAnswer: 'str(L)'
+  AnswerTests: any_of_exprs('str(L)')
+  Hint: Just type in str(L) function.
+
+- Class: cmd_question
+  Output: |-
+    How many components does the list, L, have?
+  CorrectAnswer: '4'
+  AnswerTests: any_of_exprs('4')
+  Hint: Look at the output of str(L).
+
+- Class: cmd_question
+  Output: |-
+    An R object, parks_df, is given in the workspace. Use summary() to summarize parks_df.
+  CorrectAnswer: 'summary(parks_df)'
+  AnswerTests: any_of_exprs('summary(parks_df)')
+  Hint: Just type in summary(parks_df) function.
+  
+  
+- Class: text
+  Output: Notice that the output of summary() will depend on the class of the input object. For data frames, the summary() function will compute summary statistics for each column in the data frame. If the column is a character or factor vector, the summary() output will adapt and return frequencies.
+
+
+- Class: cmd_question
+  Output: |-
+    An R object, A, is given in the workspace. Use an R function to find out the class of A. Just type in the R command.
+  CorrectAnswer: 'class(A)'
+  AnswerTests: any_of_exprs('class(A)')
+  Hint: Just type in class(A) function.
+
+
+- Class: cmd_question
+  Output: |-
+    Use a vectorized R function to compute the standard deviation of each column. Just type in the R command. 
+  CorrectAnswer: 'apply(A, 2, sd)'
+  AnswerTests: any_of_exprs('apply(A, 2, sd)')
+  Hint: Use apply().
+
+- Class: cmd_question
+  Output: |-
+    Use a vectorized R function to find out the class of each component in parks_df. Just type in the R command. 
+  CorrectAnswer: 'lapply(parks_df, class)'
+  AnswerTests: any_of_exprs('lapply(parks_df, class)')
+  Hint: Use lapply().
+  
+
+- Class: mult_question
+  Output: |-
+    The input to lapply() should be of which class? 
+  AnswerChoices: character;factor;list;integer;numeric
+  CorrectAnswer: list
+  AnswerTests: omnitest(correctVal='list')
+
+
+- Class: text
+  Output: Even though the lappy() function is designed for list, it also works for data frames since data frames are stored as lists in R.
+
+- Class: cmd_question
+  Output: |-
+    Use a vectorized R function to find out the class of each component in L. Just type in the R command. 
+  CorrectAnswer: 'lapply(L, class)'
+  AnswerTests: any_of_exprs('lapply(L, class)')
+  Hint: Use lapply().
+
+  
+- Class: mult_question
+  Output: |-
+    The output of lapply() is of which class? 
+  AnswerChoices: character;factor;list;integer;numeric
+  CorrectAnswer: list
+  AnswerTests: omnitest(correctVal='list')
+
+- Class: cmd_question
+  Output: |-
+    Use sapply() to find out the class of each component in L. Just type in the R command. 
+  CorrectAnswer: 'sapply(L, class)'
+  AnswerTests: any_of_exprs('sapply(L, class)')
+  Hint: Use sapply().
+
+
+- Class: mult_question
+  Output: |-
+    What is the class of sapply(L, class)? 
+  AnswerChoices: character;factor;list;integer;numeric
+  CorrectAnswer: character
+  AnswerTests: omnitest(correctVal='character')
+
+
+- Class: text
+  Output: The sapply() function is a wrapper for lapply(), so sapply() also applies a function to each component of a list. The only difference is that sapply() will try to simplify the output from lapply() whenever possible. 
+
+- Class: cmd_question
+  Output: |-
+    Use vapply() to find out the class of each component in L. Just type in the R command. 
+  CorrectAnswer: 'vapply(L, class, character(1))'
+  AnswerTests: any_of_exprs('vapply(L, class, character(1))')
+  Hint: Use vapply().
+
+- Class: text
+  Output: The vapply() function is similar to sapply(), except that it requires an third argument called FUN.VALUE that specifies the type of return value you expect the FUN function to output.The strictness of vapply() imposed by requiring the FUN.VALUE argument helps in making sure that your output has exactly the structure you expect. 
+
+
+- Class: cmd_question
+  Output: |-
+    The pulse of all participants in a stress study is stored in an R object, pulse, in the workspace. Also, two potential factors, F1 and F2, that might affect one's stress level as measured by pulse are also given in the workspace. Examine the main effect of F1 by computing the mean pulse of each level in F1 with a vectorized R function.   
+  CorrectAnswer: 'tapply(pulse, F1, mean)'
+  AnswerTests: any_of_exprs('tapply(pulse, F1, mean)')
+  Hint: Use tapply().
+
+- Class: cmd_question
+  Output: |-
+    Examine the interaction effect of F1 and F2 by computing the mean pulse of combinations of levels from F1 and F2. 
+  CorrectAnswer: 'tapply(pulse, list(F1, F2), mean)'
+  AnswerTests: any_of_exprs('tapply(pulse, list(F1, F2), mean)')
+  Hint: Use tapply().
+
+## Leave this last question for submitting the logfile.
+# - Class: mult_question
+#   Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
+#   AnswerChoices: Yes;No
+#   CorrectAnswer: NULL
+#   AnswerTests: submit_log()
+#   Hint: hint

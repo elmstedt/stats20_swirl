@@ -1,0 +1,309 @@
+- Class: meta
+  Course: Stats 20
+  Lesson: Chapter 5 - Matrices
+  Author: Jake Elmstedt
+  Type: Standard
+  Organization: UCLA
+  Version: 2.4.4
+
+
+- Class: text
+  Output: |-
+    The next classes of objects we need to discuss are matrices (two-dimensional atomic data) and arrays (three-dimensional or higher atomic data). If you are comfortable with vectors you should have no problem with matrices and arrays since they are nothing more than vectors in fancy dress.
+
+    The only thing which differentiates a matrix (or array) from a vector is that it has an additional dimensional attribute named "dim" attached to it. To drive this point home, we will restrict ourselves to constructing matrices and arrays by adding this attribute to a vector.
+
+- Class: cmd_question
+  Output: |-
+    Let's start with a simple vector which will allow us to easily recognize how all this works.
+
+    Construct a vector named v which is simply the numbers 1 to 24 in order.
+  CorrectAnswer: "v <- 1:24"
+  AnswerTests: any_of_exprs('v <- 1:24', 'v <- seq(24)', 'v <- seq(1,24)', 'v <- seq(1, 24, 1)')
+  Hint: Use the colon operator or the seq() function.
+
+- Class: cmd_question
+  Output: |-
+    Let's look at our vector.
+
+    Enter 'v' below to see the results of your handiwork.
+  CorrectAnswer: "v"
+  AnswerTests: omnitest(correctExpr = 'v')
+
+- Class: cmd_question
+  Output: |-
+    Nice! Let's see what the dimension of our object is.
+  
+    Enter 'dim(v)' below to see its dimensionality.
+  CorrectAnswer: "dim(v)"
+  AnswerTests: omnitest(correctExpr = 'dim(v)')
+
+- Class: cmd_question
+  Output: |-
+    The return value of NULL lets us know there is no dimension attribute associated with our vector, don't worry, this is normal and expected.
+  
+    Let's make two copies of our vector named m and a. We can do this at once by "chaining" assignment operations. This is certainly unusual, but there isn't anything technically wrong with it.
+    Type 'a <- m <- v' below and hit enter.
+  CorrectAnswer: "a <- m <- v"
+  AnswerTests: omnitest(correctExpr = 'a <- m <- v')
+
+- Class: cmd_question
+  Output: |-
+    Now, we need to set the dimension attribute for our matrix m. Let's make our matrix have 4 rows and 6 columns.
+  
+    Enter 'dim(m) <- c(4, 6)' below.
+  CorrectAnswer: "dim(m) <- c(4,6)"
+  AnswerTests: omnitest(correctExpr = 'dim(m) <- c(4,6)')
+
+- Class: cmd_question
+  Output: |-
+    Next, we can set the dimension attribute for our array a. Let's make our array have 4 rows, 3 columns, and 2 slices.
+  
+    Enter 'dim(a) <- c(4, 3, 2)' below.
+  CorrectAnswer: "dim(a) <- c(4, 3, 2)"
+  AnswerTests: omnitest(correctExpr = 'dim(a) <- c(4, 3, 2)')
+
+- Class: cmd_question
+  Output: |-
+    Prefect, now let's take a look at our vector and our matrix together. We can see them together if we put them into a list object.
+  
+    Enter 'list(v, m)' below.
+  CorrectAnswer: "list(v, m)"
+  AnswerTests: omnitest(correctExpr = 'list(v, m)')
+  
+- Class: text
+  Output: |-
+    Notice how the values from our vector have been put into the matrix. We start in the upper left-hand corner and continue down the first column. R is what is refered to as a "column-major" language because when filling up a matrix it does so one column at a time. Other languages like Python and C++ are what is refered to as "row-major" because they fill matrices one row at a time instead. Neither method is "better" than the other, but it's a distinction you should be aware of if you program in any other languages ESPECIALLY if you ever plan on interfacing between R and another language,
+  
+- Class: cmd_question
+  Output: |-
+    Now let's take a look at our vector and our array together.
+
+    Enter 'list(v, a)' below.
+  CorrectAnswer: "list(v, a)"
+  AnswerTests: omnitest(correctExpr = 'list(v, a)')
+  
+- Class: text
+  Output: |-
+    Take a minute or two and look how the array has been filled. Think on it a bit and try to imagine how you would describe how the array was filled.
+    
+- Class: mult_question
+  Output: |-
+    What is the MAJOR dimension of the array?
+  AnswerChoices: Rows, [X,,], the first dimension.; Columns, [,X,], the second dimension.; Slices, [,,X], the third dimension.
+  CorrectAnswer: Slices, [,,X], the third dimension.
+  AnswerTests: omnitest(correctVal="Slices, [,,X], the third dimension.")
+  Hint: "Which dimension splits 1:24 into 1:12 and 13:24?"
+  
+- Class: mult_question
+  Output: What if we had a 4-dimensional array, which dimension would we fill along?
+  AnswerChoices: Rows, [X,,,], the first dimension.; Columns, [,X,,], the second dimension.; Slices, [,,X,], the third dimension.; Blocks, [,,,X], the fourth dimension.
+  CorrectAnswer: Blocks, [,,,X], the fourth dimension.
+  AnswerTests: omnitest(correctVal="Blocks, [,,,X], the fourth dimension.")
+  Hint: "What is the pattern?"
+
+- Class: cmd_question
+  Output: |-
+    Let's again look at our vector and our matrix together.
+  
+    Enter 'list(v, m)' below.
+  CorrectAnswer: "list(v, m)"
+  AnswerTests: omnitest(correctExpr = 'list(v, m)')
+
+- Class: cmd_question
+  Output: |-
+    If we want to extract an element of the vector, we use the notation 'x[n]' where x is the name of a vector and n is the index of the element we want to extract. Similarly, we can extract from a matrix (or array) by using the array index of the element we want. In a matrix this will be the row and column numbers where the element is located.
+  
+    Let's extract the 15 from the vector and the matrix. 15 is the 15th element of the vector and it is in row 3 coulmn 4 of our matrix.
+  
+    Enter 'list(v[15], m[3, 4])' below to extract the element at index 15 in the vector and the element in row 3 column 4 in the matrix.
+  CorrectAnswer: "list(v[15], m[3, 4])"
+  AnswerTests: omnitest(correctExpr = 'list(v[15], m[3, 4])')
+  
+- Class: cmd_question
+  Output: |-
+    Now, to really emphasize the point a matrix is really just a vector in disguise, try subsetting the 15th element from the matrix.
+    
+    Enter 'm[15]' below.
+  CorrectAnswer: "m[15]"
+  AnswerTests: omnitest(correctExpr = 'm[15]')
+  
+- Class: text
+  Output: |-
+    The next way we will consider to construct a matrix will be by binding together some vectors. The two simple binding functions are rbind() for binding vectors together as rows and cbind for binding vectors together as columns.
+  
+    I've made a few vectors for you to experiment with.
+  
+    The code which generated them was: 
+  
+    v1 <- seq(pi, length.out = 4)
+  
+    v2 <- 4:1
+  
+    v3 <- seq(-1.5, length.out = 4)
+  
+    v4 <- rep(3,3)
+  
+    v5 <- 1:5
+  
+- Class: cmd_question
+  Output: |-
+    Starting out nice and simple, try 'rbind(v1, v2)'.
+  CorrectAnswer: "rbind(v1, v2)"
+  AnswerTests: omnitest(correctExpr = 'rbind(v1, v2)')
+
+- Class: cmd_question
+  Output: |-
+    Let's see how that differs from 'cbind(v1, v2)', this time store the matrix as m.
+  CorrectAnswer: "m <- cbind(v1, v2)"
+  AnswerTests: omnitest(correctExpr = 'm <- cbind(v1, v2)')
+  
+- Class: cmd_question
+  Output: |-
+    And let's have a look at m.
+  CorrectAnswer: "m"
+  AnswerTests: omnitest(correctExpr = 'm')
+  Hint: Type "m" and press enter.
+  
+- Class: cmd_question
+  Output: |-
+    Now, if we wanted to add a third column, we can do 'cbind(m, v3)', try it below.
+  CorrectAnswer: "cbind(m, v3)"
+  AnswerTests: omnitest(correctExpr = 'cbind(m, v3)')
+  
+- Class: cmd_question
+  Output: |-
+    Note, we would have gotten the same thing if we had simply used cbind() on all three vectors at once. Try 'cbind(v1, v2, v3)'.
+  CorrectAnswer: "cbind(v1, v2, v3)"
+  AnswerTests: omnitest(correctExpr = 'cbind(v1, v2, v3)')
+
+- Class: text
+  Output: |-
+    This will generally be better than calling cbind() multiple times. We'll see why in a bit.
+    
+- Class: cmd_question
+  Output: |-
+    Now, what do you think will happen if we try binding together different sized vectors?
+      
+    Let's find out, shall we? Type 'cbind(v1, v4, v5)' below and hit enter.
+  CorrectAnswer: "cbind(v1, v4, v5)"
+  AnswerTests: omnitest(correctExpr = 'cbind(v1, v4, v5)')
+
+- Class: text
+  Output: |-
+    Notice how it recycled both shorter vectors to match the longest vector.
+  
+- Class: cmd_question
+  Output: |-
+    Now, what if we did it in pieces instead? bind v1 and v4 together and save the result as m.
+  CorrectAnswer: "m <- cbind(v1, v4)"
+  AnswerTests: omnitest(correctExpr = 'm <- cbind(v1, v4)')
+
+- Class: cmd_question
+  Output: |-
+    Let's take a look at m.
+  CorrectAnswer: "m"
+  AnswerTests: omnitest(correctExpr = 'm')
+  
+- Class: mult_question
+  Output: Now, if we were to call 'cbind(m, v5)', where m is a 4x2 matrix and v is a length 5 vector, what do you think will happen?
+  AnswerChoices: Nothing; Error; The matrix is recycled because it only has four rows and binding v5 will make a matrix with 5 rows; v5 is truncated, then bound to the matrix, and the result is a 4x3 matrix.
+  CorrectAnswer: v5 is truncated, then bound to the matrix, and the result is a 4x3 matrix.
+  AnswerTests: omnitest(correctVal="v5 is truncated, then bound to the matrix, and the result is a 4x3 matrix.")
+  Hint: 'When vectors recycle, the shorter vector is recycled up to the size of the longer vector, right? Which "vector" is longer, m or v5?'
+  
+- Class: cmd_question
+  Output: |-
+    Let's verify that.
+
+    Type 'm2 <- cbind(m, v5)' below.
+  CorrectAnswer: "m2 <- cbind(m, v5)"
+  AnswerTests: omnitest(correctExpr = 'm2 <- cbind(m, v5)')
+
+- Class: cmd_question
+  Output: |-
+    And type m2 below to view the new matrix.
+  CorrectAnswer: "m2"
+  AnswerTests: omnitest(correctExpr = 'm2')
+
+- Class: cmd_question
+  Output: |-
+    Use the which() function to find the element of m2 with the value 2.
+  CorrectAnswer: "which(m2 == 2)"
+  AnswerTests: omnitest(correctExpr = 'which(m2 == 2)')
+
+- Class: text
+  Output: |-
+    Notice how it returned the value 10?
+    
+    This is the vector index of the value 2 in m2. But, what if we needed the row and column where the 2 can be found?
+    
+- Class: cmd_question
+  Output: |-
+    We could create a new function which would convert the vector index into an array index, or we could just set the argument arr.ind = TRUE in the function call to which().
+    
+    Try it below.
+  CorrectAnswer: "which(m2 == 2, arr.ind = TRUE)"
+  AnswerTests: omnitest(correctExpr = 'which(m2 == 2, arr.ind = TRUE)')
+
+- Class: cmd_question
+  Output: |-
+    Sometimes rectangular data is stored in matrices. When it is, we almost always think of the columns as variables and the rows as observations.
+    
+    I have made one such matrix called gradebook. Look at it now.
+  CorrectAnswer: "gradebook"
+  AnswerTests: omnitest(correctExpr = 'gradebook')
+  Hint: "Type gradebook and press enter."
+
+- Class: text
+  Output: |-
+    If we wanted to get the homework average for every student, we might say, "We want to APPLY the mean() function to each row."
+    
+    So, we'll want to use a function in the apply family of functions. vapply() wont work--it applies the function to every ELEMENT, so we'll need a different function.
+    
+    The function we will use is simply called apply().
+    
+- Class: text
+  Output: |-
+    Similar to vapply() the syntax of apply() is apply(X, MARGIN, FUN, ...), where the arguments are:
+    
+    X: A matrix or data frame
+    
+    MARGIN: A vector giving the subscript(s) over which the function will be applied over. A 1 indicates rows, 2 indicates columns, and c(1,2) indicates rows and columns.
+
+    FUN: The function to be applied.
+    
+    ...: Any optional arguments to be passed to the FUN function (for example, na.rm=TRUE).
+    
+- Class: cmd_question
+  Output: |-
+    So, if we wanted the average homework score of each student, what shoud we do?
+    
+    Enter code below to apply the mean() function to each row of the matrix gradebook.
+  CorrectAnswer: "apply(gradebook, 1, mean)"
+  AnswerTests: omnitest(correctExpr = 'apply(gradebook, 1, mean)')
+  Hint: "Don't name your agruments in the function call, and don't worry about the NA value (yet)."
+
+- Class: cmd_question
+  Output: |-
+    Now, you probably notice Student_D's average is NA. Let's run the above command again, but this time, add an argument to remove the NA before calculating the mean.
+    
+  CorrectAnswer: "apply(gradebook, 1, mean, na.rm = TRUE)"
+  AnswerTests: any_of_exprs('apply(gradebook, 1, mean, na.rm = TRUE)')
+  Hint: "Note: when passing arguments to the applied function, in this case mean(), you should ALWAYS name those arguments."
+
+- Class: cmd_question
+  Output: |-
+    Finally, let's calulate the median score for each homework, removing the NA values.
+    
+  CorrectAnswer: "apply(gradebook, 2, median, na.rm = TRUE)"
+  AnswerTests: any_of_exprs('apply(gradebook, 2, median, na.rm = TRUE)')
+  Hint: "Note: when passing arguments to the applied function, in this case median(), you should ALWAYS name those arguments."
+
+#- Class: mult_question
+#  Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
+#  AnswerChoices: Yes;No
+#  CorrectAnswer: NULL
+#  AnswerTests: submit_log()
+#  Hint: hint
+

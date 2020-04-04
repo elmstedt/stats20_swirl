@@ -1,0 +1,165 @@
+- Class: meta
+  Course: Stats 20
+  Lesson: Chapter 5 - Factors
+  Author: Bo Pang and Jake Elmstedt
+  Type: Standard
+  Organization: UCLA
+  Version: 2.4.4
+
+# Questions go here:
+
+- Class: cmd_question
+  Output: |-
+    Let's start with a simple factor. First, construct a vector named group with the following elements: control, treatment, control, treatment, treatment.
+  CorrectAnswer: 'group <- c("control","treatment","control","treatment","treatment")'
+  AnswerTests: any_of_exprs('group <- c("control","treatment","control","treatment","treatment")')
+  Hint: Use the c() function.
+
+- Class: cmd_question
+  Output: |-
+    Then create a factor named group with the vector you just created.
+  CorrectAnswer: 'group <- factor(group)'
+  AnswerTests: any_of_exprs('group <- factor(group)')
+  Hint: Use the factor() function.
+
+- Class: mult_question
+  Output: |-
+    In what data type the factor, group, is internally stored in R?
+  AnswerChoices: character;factor;list;integer;numeric
+  CorrectAnswer: integer
+  AnswerTests: omnitest(correctVal='integer')
+
+
+- Class: text
+  Output: Even though the factor, group, is created from a character vector, it is stored as integers in R internally.
+  
+  
+- Class: mult_question
+  Output: |-
+    Can you apply numeric operations to factors?
+  AnswerChoices: yes;no
+  CorrectAnswer: no
+  AnswerTests: omnitest(correctVal='no')
+
+- Class: text
+  Output: Because factors represent categorical data, we cannot apply the usual arithmetic operations on them, even though the values of factors are stored as integers. Attempting to apply numeric operations to factors will cause R to throw a warning and produce a vector of NA values.
+
+
+- Class: cmd_question
+  Output: |-
+    Display the levels of group.
+  CorrectAnswer: 'levels(group)'
+  AnswerTests: any_of_exprs('levels(group)')
+  Hint: Use the levels() function.
+
+- Class: mult_question
+  Output: |-
+    What is the class of levels(group)?
+  AnswerChoices: numeric vector;integer vector;character vector;list
+  CorrectAnswer: character vector
+  AnswerTests: omnitest(correctVal='character vector')
+
+- Class: cmd_question
+  Output: |-
+    Add a new level, treatment2, to the group.
+  CorrectAnswer: 'levels(group)[3] <- "treatment2"'
+  AnswerTests: any_of_exprs('levels(group)[3] <- "treatment2"')
+  Hint: Use the levels() function.
+
+
+- Class: cmd_question
+  Output: |-
+    Create a frequency table of group.
+  CorrectAnswer: 'table(group)'
+  AnswerTests: any_of_exprs('table(group)')
+  Hint: Use the table() function.
+
+- Class: cmd_question
+  Output: |-
+    Create a new factor, group2, by extracting the first two elements of the factor, group.
+  CorrectAnswer: 'group2 <- group[1:2]'
+  AnswerTests: any_of_exprs('group2 <- group[1:2]')
+  Hint: Use [].
+
+- Class: cmd_question
+  Output: |-
+    Use a built-in R function to display the number of levels group2 has.
+  CorrectAnswer: 'nlevels(group2)'
+  AnswerTests: any_of_exprs('nlevels(group2)')
+  Hint: Use nlevels().
+  
+  
+- Class: text
+  Output: Notice that group2 has 3 levels since we added an additional level to group. And group2 keeps the levels of group unless the drop=TRUE is used.
+
+- Class: mult_question
+  Output: |-
+    Suppose three factors are created with the following commands.
+    a <- factor(c("C", "a", "b", "A", "a", "A"))
+    b <- factor(c("C", "a", "b", "A", "a", "A"), ordered = TRUE)
+    c <- factor(c("C", "a", "b", "A", "a", "A"), levels = c("C", "a", "b", "A"), 
+                 ordered = TRUE)
+    Which factor(s) have levels, "a", "A", "b",  "C".
+  AnswerChoices: a; b; a and b; c; b and c; a and c
+  CorrectAnswer: a and b
+  AnswerTests: omnitest(correctVal='a and b')
+
+- Class: cmd_question
+  Output: |-
+    You have in your environment a numeric vector called exam_score, display it in the console below.
+  CorrectAnswer: 'exam_score'
+  AnswerTests: any_of_exprs('exam_score')
+  Hint: "Just type exam_score and press enter."
+
+- Class: cmd_question
+  Output: |-
+    You also have in your environment a factor called class_level, display it in the console below.
+  CorrectAnswer: 'class_level'
+  AnswerTests: any_of_exprs('class_level')
+  Hint: "Just type class_level and press enter."
+
+- Class: text
+  Output: |-
+    Now, these two objects, exam_score and class_level, make up what is sometimes refered to as a "ragged array."
+    
+    It is called a ragged array because, if you were to try to force it into an array-like structure (i.e. a matrix), the rows would be different lengths so, instead of having a clean edge, the right hand side of this array would look torn. Hence, "ragged array."
+
+- Class: text
+  Output: |-
+    Now, let us imaging we wanted the average exam score by class level. We want to APPLY the mean function to each category of class_level.
+    
+    Since we don't have a nice, clean, array, there aren't margins to work with. So we can't use apply(), and we don't want to take the mean of each element of class_level so we can't use vapply().
+    
+    Luckily, there is something in the apply family of functions which will do this for us: tapply().
+    
+- Class: text
+  Output: |-
+    The syntax of tapply() is tapply(X, INDEX, FUN, ..., simplify=TRUE), where the arguments are:
+    
+    X: A numeric or logical vector.
+    
+    INDEX: A factor or list of factors that identifies the subsets. Non-factors will be coerced into factors.
+    
+    FUN: The function to be applied.
+    
+    ...: Any optional arguments to be passed to the FUN function.
+    
+    simplify: Logical value that specifies whether to simplify the output to a vector or matrix.
+
+- Class: cmd_question
+  Output: |-
+    Enter code below to apply the mean() function to exam scores by class level.
+    
+    You don't need to name any arguments here.
+  CorrectAnswer: 'tapply(exam_score, class_level, mean)'
+  AnswerTests: any_of_exprs('tapply(exam_score, class_level, mean)')
+  Hint: "You only need to pass three arguments to tapply() and none of them should be named."
+    
+## Leave this last question for submitting the logfile.
+#- Class: mult_question
+#  Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
+#  AnswerChoices: Yes;No
+#  CorrectAnswer: NULL
+#  AnswerTests: submit_log()
+#  Hint: hint
+

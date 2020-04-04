@@ -1,0 +1,298 @@
+- Class: meta
+  Course: stats_20
+  Lesson: Chapter 7 - Data Frames and Lists
+  Author: Jake Elmstedt
+  Type: Standard
+  Organization: UCLA
+  Version: 2.4.4
+
+- Class: cmd_question
+  Output: We will start with the iris dataframe. Display the iris data set by entering code below.
+  CorrectAnswer: iris
+  AnswerTests: any_of_exprs("iris")
+  Hint: Just type iris and enter.
+
+- Class: cmd_question
+  Output: "Wow the data covers the whole of the console and it isn't too nice to look at. We can view the data on the editor's pane window by simply typing View(iris)"
+  CorrectAnswer: View(iris)
+  AnswerTests: omnitest(correctExpr = 'View(iris)')
+
+- Class: cmd_question
+  Output: |-
+    The command above shows us the whole dataset in the editors' pane. What if we just needed to view the first 10 observations?
+    
+    Use the head() function to view the first 10 observations in the iris data set. You shouldn't name any arguments.
+  CorrectAnswer: head(iris, 10)
+  AnswerTests: any_of_exprs("head(iris, n = 10)","head(iris, 10)", "head(x = iris, n = 10)")
+  Hint: "Type head(iris, 10) and press enter."
+
+
+- Class: cmd_question
+  Output: |-
+    What about the last 10 observations?
+    
+    Use the tail() function to view the last 10 observations in the iris data set. You shouldn't name any arguments.
+  CorrectAnswer: tail(iris, 10)
+  AnswerTests: any_of_exprs("tail(iris, n = 10)","tail(iris, 10)", "tail(x = iris, n = 10)")
+  Hint: "Type tail(iris, 10) and press enter."
+
+- Class: cmd_question
+  Output: |-
+    The function str() will display the structure of an object along with some of the data it contains.
+    
+    Use the str() function to look at the structure of the iris data set.
+  CorrectAnswer: str(iris)
+  AnswerTests: omnitest(correctExpr = 'str(iris)')
+  Hint: "Type str(iris) and press enter."
+
+- Class: text
+  Output: |-
+    Great! We are able to see that iris is of class 'dataframe'. It has 150 observations and 5 variables. The variable names together with the class of the variable are also indicated.
+    
+    We can see that four of the five variables are numeric while one is a factor.
+    
+    The nrow() and ncol() functions will tell us how many rows and columns a dataset (or any rectangular object, like a matrix) has.
+
+- Class: cmd_question
+  Output: Enter R code to display the number of observations in the iris data set.
+  CorrectAnswer: nrow(iris)
+  AnswerTests: any_of_exprs('nrow(iris)')
+  Hint: "Type nrow(iris) and press enter."
+
+
+- Class: cmd_question
+  Output: What about the number of variables?
+  CorrectAnswer: ncol(iris)
+  AnswerTests: any_of_exprs('ncol(iris)')
+  Hint: "Type ncol(iris) and press enter."
+  
+- Class: cmd_question
+  Output: The summary() function returns an overview of the data. Type summary(iris) below and press enter.
+  CorrectAnswer: summary(iris)
+  AnswerTests: omnitest(correctExpr = 'summary(iris)')
+
+- Class:  cmd_question
+  Output: |-
+    What is the storage mode of a dataframe? (Find the mode of iris.)
+  CorrectAnswer: mode(iris)
+  AnswerTests: omnitest(correctExpr = 'mode(iris)')
+  Hint: "Type mode(iris) and press enter."
+
+- Class: text_question
+  Output: We see that a dataframe is stored as a list. What will you get if you run is.list(iris)?
+  CorrectAnswer: 'TRUE'
+  AnswerTests: val_matches('(?i)\\s*TRUE\\s*')
+
+- Class: cmd_question
+  Output: We can coerce a dataframe to a list by using the as.list() function. Coerce the iris dataset to a list.
+  CorrectAnswer: as.list(iris)
+  AnswerTests: omnitest(correctExpr = 'as.list(iris)')
+
+- Class: cmd_question
+  Output: The Professor said that lists are vectors (well rather generic vectors), what about data frames? Are they vectors too? Use the is.vector() function on the iris data set.
+  CorrectAnswer: is.vector(iris)
+  AnswerTests: omnitest(correctExpr = 'is.vector(iris)')
+
+- Class: cmd_question
+  Output: Now, test if the version of the iris data set after being coerced to a list object is a vector.
+  CorrectAnswer: is.vector(as.list(iris))
+  AnswerTests: omnitest(correctExpr = 'is.vector(as.list(iris))')
+  Hint: is.vector(as.list(...))
+
+- Class: text
+  Output: Do you see the difference? Even though a data frame has mode list, it is not a vector. So, common functions which work on a vector will not work on a data frame.
+
+#- Class: text_question
+#  Output: You should know the difference between atomic and generic vectors. Generic vectors are recursive in nature. What is the result of is.atomic(as.list(iris))?
+#  CorrectAnswer: 'FALSE'
+#  AnswerTests: val_matches('(?i)\\s*FALSE\\s*')
+
+#- Class: text_question
+#  Output: what of is.recursive(iris) or even is.recursive(as.list(iris))
+#  CorrectAnswer: 'TRUE'
+#  AnswerTests: val_matches('(?i)\\s*TRUE\\s*')
+
+
+- Class: text
+  Output: |-
+    Great. we have just learned that a dataframe is a list. 
+    
+    Therefore, we can use all the functions for list on a dataframe!
+    
+    We extract elements in a similar fashion as we do for lists. 
+    
+    Also since it is arranged in a table format, most of the functions we used for matrices, work for dataframes as well.
+
+- Class: text
+  Output: |-
+    Difference between dataframe and list
+    
+    1. All the variables in a dataframe have same length, whereas lists may have variables with different lengths.
+    
+    2. A dataframe always has a rowname attributes.
+    
+    3. A list is a generic vector while a dataframe is not.
+
+- Class: cmd_question
+  Output: |-
+    The names() function will return the names of the elements in a list.
+    
+    What are the names of the variables in the iris data set?
+  CorrectAnswer: names(iris)
+  AnswerTests: any_of_exprs("names(iris)")
+  Hint: "Remember a data frame IS a list."
+
+- Class: cmd_question
+  Output: |-
+    You can also use the names() function to add (where they don't exist) or change the names of list items or variables in a data frame.
+    
+    The iris data set pre-dates the tidyverse style guide. Update the names of the variables of the iris data frame to adhere to modern R style.
+  CorrectAnswer: names(iris) <- c("sepal_length", "sepal_width", "petal_length", "petal_width", "species")
+  AnswerTests: any_of_exprs('names(iris) <- c("sepal_length", "sepal_width", "petal_length", "petal_width", "species")')
+  Hint: Think snake_case, or revisit the tidyverse style guide.
+
+- Class: cmd_question
+  Output: Look at the structure of the iris data frame again to verify the changes.
+  CorrectAnswer: str(iris)
+  AnswerTests: any_of_exprs('str(iris)')  
+
+
+- Class: text 
+  Output: |-
+    Great Let us look at another example. In your in your global environment, you should see stat_data.
+    
+    Enter R code below to display the contents of stat_data.
+  CorrectAnswer: stat_data
+  AnswerTests: any_of_exprs('stat_data')
+  Hint: Type stat_data and press enter.
+  
+- Class: cmd_question
+  Output: What is the class of stat_data?
+  CorrectAnswer: class(stat_data)
+  AnswerTests: omnitest(correctExpr = 'class(stat_data)')
+  Hint: Type class(stat_data) and press enter.
+
+- Class: cmd_question
+  Output: Coerce stat_data into a data.frame object and store the result in an object named stat_data2.
+  CorrectAnswer: stat_data2 <- as.data.frame(stat_data)
+  AnswerTests: omnitest(correctExpr = 'stat_data2 <- as.data.frame(stat_data)')
+  Hint: Type stat_data2 <- as.data.frame(stat_data) and press enter.
+  
+#- Class: cmd_question
+#  Output: Add a new variable to stat_data2 called name where the values are the same as the row name of the row.
+#  CorrectAnswer: stat_data2[["name"]] <- row.names(stat_data2)
+#  AnswerTests: any_of_exprs('stat_data2[["name"]] <- row.names(stat_data2)', 'stat_data2$name <- row.names(stat_data2)')
+#  Hint: Type stat_data2 <- as.data.frame(stat_data) and press enter.
+
+#- Class: cmd_question
+#  Output: |-
+#    Remove the row names of the stat_data2 object by setting them to NULL. 
+#
+#    Note: data.frame objects always have a row.names attribute, so this will reset the row names to the row indices, e.g. 1, 2, 3, etc.
+#  CorrectAnswer: row.names(stat_data2) <- NULL
+#  AnswerTests: any_of_exprs('row.names(stat_data2) <- NULL')
+#  Hint: Type row.names(stat_data2) <- NULL and press enter.
+
+- Class: cmd_question
+  Output: |-
+    Display stat_data2 below.
+  CorrectAnswer: stat_data2
+  AnswerTests: any_of_exprs('stat_data2')
+  Hint: Type stat_data2 and press enter.
+
+- Class: cmd_question
+  Output: |-
+    Now, data.frame objects are matrix-like object, so we can often treat them like matrices.
+    
+    Treat the stat_data2 object like a matrix and APPLY the mean function to each student.
+  CorrectAnswer: apply(stat_data2, 1, mean)
+  AnswerTests: any_of_exprs('apply(stat_data2, 1, mean)')
+  Hint: Apply the mean() function to each row of the data frame.
+
+- Class: cmd_question
+  Output: |-
+    And now, treat the stat_data2 object like a matrix and APPLY the mean function to each class.
+  CorrectAnswer: apply(stat_data2, 2, mean)
+  AnswerTests: any_of_exprs('apply(stat_data2, 2, mean)')
+  Hint: Apply the mean() function to each column of the data frame.
+
+- Class: cmd_question
+  Output: |-
+    Now, if we want to apply a function to each element in a list we have some choices.
+    
+    We could, of course, use vapply(). 
+    
+    But, sometimes we need more flexibility. What if the output of each call to the function has a different length or is a different type?
+    
+    Display the list object contrived_list below.
+  CorrectAnswer: contrived_list
+  AnswerTests: any_of_exprs('contrived_list')
+  Hint: Type contrived_list and press enter.
+  
+- Class: text
+  Output: |-
+    If we wanted to find the maximum element in each element of the contrived_list object, we couldn't use vapply() because each maximum element is of a different type.
+
+- Class: text
+  Output: |-
+    The lapply() function is used to apply a function to each component of a list (lapply is short for “list apply”). The output of lapply() will be a list.
+    
+    The syntax of lapply() is lapply(X,FUN,...), where the arguments are:
+    
+    X: A list (though it will accept any list-like object, e.g. a vecotr or a data frame).
+    
+    FUN: The function to be applied.
+    
+    ...: Any optional arguments to be passed to the FUN function.
+
+- Class: cmd_question
+  Output: APPLY the max() function to each element in the contrived_list object.
+  CorrectAnswer: lapply(contrived_list, max)
+  AnswerTests: omnitest(correctExpr = 'lapply(contrived_list, max)')
+  Hint: Type lapply(contrived_list, max) and press enter.
+
+- Class: cmd_question
+  Output: Remember, data frames ARE lists. Treat the data frame stat_data2 as a list and APPLY the mean() function to each variable.
+  CorrectAnswer: lapply(stat_data2, mean)
+  AnswerTests: omnitest(correctExpr = 'lapply(stat_data2, mean)')
+  Hint: Type lapply(stat_data2, mean) and press enter.
+
+- Class: text
+  Output: |-
+    You'll, no doubt, notice the result is another list. Sometimes, though, you'll want the result back as a vector.
+    
+    The sapply() function is a wrapper for lapply(), so sapply() also applies a function to each component of a list. The only difference is that sapply() will try to simplify the output from lapply() whenever possible (sapply is short for “simplified [l]apply”). In particular:
+
+    If the result is a list where every component is a vector of length 1 (i.e., a scalar), then sapply() will return a vector.
+    
+    If the result is a list where every component is a vector of the same length (greater than 1), then sapply() will return a matrix.
+    
+    If the result is a list where every component is not a vector of the same length, then sapply() will return a list (i.e., the same output as from lapply().)
+  
+- Class: cmd_question
+  Output: Treat the data frame stat_data2 as a list and APPLY the mean() function to each variable, but return a vector.  
+  CorrectAnswer: sapply(stat_data2, mean)
+  AnswerTests: omnitest(correctExpr = 'sapply(stat_data2, mean)')
+  Hint: Type sapply(stat_data2, mean) and press enter.
+  
+- Class: cmd_question
+  Output: Finally, APPLY the max() function to each element in the contrived_list object, but return a vector.
+  CorrectAnswer: sapply(contrived_list, max)
+  AnswerTests: omnitest(correctExpr = 'sapply(contrived_list, max)')
+  Hint: Type sapply(contrived_list, max) and press enter.
+
+- Class: text
+  Output: |-
+    Look carefully at the output. sapply() can be a very dangerous function because it will happily coerce the resulting vector to the highest type present in the mode hierarchy WITHOUT warning.
+    
+    Almost always it is better to use vapply() if the output of each function call is the same length and type, or lapply() if the output of each function call is not so well-behaved.
+    
+## Leave this last question for submitting the logfile.
+#- Class: mult_question
+#  Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
+#  AnswerChoices: Yes;No
+#  CorrectAnswer: NULL
+#  AnswerTests: submit_log()
+#  Hint: hint
+
+

@@ -1,0 +1,224 @@
+- Class: meta
+  Course: Stats 20
+  Lesson: Chapter 4 - Control Flow
+  Author: Jake Elmstedt
+  Type: Standard
+  Organization: UCLA
+  Version: 2.4.4
+
+# Questions go here:
+- Class: text
+  Output: |-
+    Being able to control the flow of data through a function or program is critical to writing useful code.
+    
+    A control flow statement is a statement which, when executed, results in a decision as to which of two (or more paths) to follow.
+# Conditionals
+- Class: text
+  Output: |-
+    The first (and most basic) type of CONTROL FLOW statement is the IF statement.
+    
+    The IF statement contains three parts:
+    
+    1. The keyword/function: if();
+    
+    2. The condition. This is a statement which evaluates to a single TRUE of FALSE value.
+    
+    3. The if block. This is the code block which will (or will not) be executed depending on the evaluation of the condition.
+    
+## if
+- Class: figure
+  Output: Here is a FLOW CONTROL diagram for the IF construct.
+  Figure: if.R
+  FigureType: new
+
+- Class: script
+  Output: |
+    Edit the open script to test if x is even and, if so, set x equal to one-half x.
+    
+    When you are finished, SAVE the script file and type submit() below.
+  AnswerTests: test_f1()
+  Hint: What does it mean to be even? The remainder when you divide by two is zero.
+  Script: f1.R
+
+## if / else
+- Class: text
+  Output: |-
+    The next type of CONTROL FLOW statement is the IF/ELSE statement.
+    
+    The IF/ELSE statement contains five parts:
+    
+    1. The keyword/function: if();
+    
+    2. The condition. This is a statement which evaluates to a single TRUE of FALSE value.
+    
+    3. The if block. This is the code block which will (only) be executed if the condition evaluates to TRUE.
+    
+    4. The keyword: else.
+    
+    5. The else block. This is the code block which will (only) be executed if the condition evaluates to FALSE.
+    
+- Class: figure
+  Output: Here is a FLOW CONTROL diagram for the IF/ELSE construct.
+  Figure: if_else.R
+  FigureType: new
+  
+- Class: script
+  Output: |
+    Edit the open script to test if x is even and, if so, set x equal to one-half x, and if x is not even, set x equal to three times x plus 1.
+    
+    When you are finished, SAVE the script file and type submit() below.
+  AnswerTests: test_f2()
+  Hint: What does it mean to be even? The remainder when you divide by two is zero.
+  Script: f2.R
+
+## ifelse
+- Class: text
+  Output: |-
+    There is a vectorized version of the if/else construct, the ifelse function. This has the form ifelse(test, yes, no) and returns a vector of the same length as condition, with elements a[i] if condition[i] is true, otherwise b[i] (where a and b are recycled as necessary).
+    
+    This has four parts:
+    
+    1. The ifelse() function call.
+    
+    2. test: A vector of conditions.
+    
+    3. yes: A vector ofvalues to return for each TRUE.
+    
+    4. no: A vector values to return for each FALSE.
+    
+    NOTE: If yes or no are too short, their elements are recycled. yes will be evaluated if and only if any element of test is true, and analogously for no.
+    
+- Class: cmd_question
+  Output: |-
+    Write a line of code which takes a vector of the first 10 counting numbers (x) and returns a vector where, for each element of the input vector, if the element is even, the corresponding element of the return vector will be the input element divided by two, otherwise the corresponding element of the return vector will be three times the input element plus one.
+  CorrectAnswer: "ifelse(x %% 2 == 0, x / 2, 3 * x + 1)"
+  AnswerTests: any_of_exprs('ifelse(x %% 2 == 0, x / 2, 3 * x + 1)')
+  Hint: "Don't use unecessary parentheses or any functions other than ifelse() (operators are okay). Remember x is the vector 1:10."
+  
+# Loops
+- Class: text
+  Output: |-
+    There are four general types of loops in (most) computer programming languages.
+    
+    1. Counting loops; Used when you want to perform an action some, specific, number of times. You may (or may not) care what the value of the iterator is.
+    
+    2. Collection loops; Used when you want to perform the same action on each item in a collection, vector, list, or set.
+    
+    3. Conditional loops; Used when you need to repeat a process as long as a condition is true. You may (or may not) ever enter the loop.
+    
+    4. Infinite loops; Used when you want to ensure the loop runs forever, until interupted by a user, an event, or a condition.
+
+- Class: text
+  Output: |-
+    In most languages, the counting loop is a FOR loop, and the collection loop is typically thought of as a FOR EACH loop, the idea being "do this to each item in this collection", rather than "do this n times."
+    
+    As such, R does not, technically, have a counting loop type, rather it uses a collection loop which is (often) forced into the role of a counting loop.
+    
+    The notation is: for (i in set){}, with the components being:
+    
+    1. The keyword/function for.
+    
+    2. The iterator variable.
+    
+    3. The collection to iterate over.
+    
+    4. The code block to execute for each element in the collection.
+    
+- Class: text
+  Output: |-
+    Using the for loop in R as a counting loop might look something like this:
+    
+    n <- 10
+    
+    for (i in 1:n) {
+        print("Hello World!")
+    }
+    
+    Which would print "Hello World!" ten times.
+    
+    But this could be very dangerous if, for instance, you wanted to print "Hello World!" zero times. So, inside of functions, the COLON OPERATOR should be avoided when making counting loops.
+    
+- Class: text
+  Output: |-
+    You should ALWAYS strive to employ DEFENSIVE PROGRAMMING practices whenever possible. Defensive programming is a catch-all term for programming techniques which attempt to ensure your code continues to function properly, as intended, under unforseen cirecumstances.
+  
+    If the VALUE of the iterator element doesn't matter in the loop it is best to use seq_len(n) or seq(length.out = n) rather than 1:n because there is no way to create a length-zero vector with the COLON OPERATOR.
+    
+    Alternately, you might use seq_along(x) if you want to have an iterator for each element of x.
+    
+    If the VALUE of the iterator element does matter in the loop, it is best to use seq(from = a, length.out = n).
+    
+## for
+- Class: script
+  Output: |
+    Update the for loop in the above script to employ defensive programming techniques. The function should be able to sort length-one AND length-zero vectors without throwing an error.
+    
+    When you are finished, SAVE the script file and type submit() below.
+  AnswerTests: test_f3()
+  Hint: Look up.
+  Script: f3.R
+
+## while
+- Class: text
+  Output: |-
+    The CONDITIONAL LOOP structure in R is the WHILE loop. The while loop test a condition at the top of the loop. If the condition evaluates to TRUE, the body of the loop (the code block) will be executed. When the condition no longer evaluates to TRUE, the code block will be skipped and execution continues after the block.
+
+    The structure of a WHILE loop looks like this:
+    
+    while (condition) {
+        # CODE BLOCK
+    }
+
+- Class: script
+  Output: |
+    Edit the function in the above script to loop while x is any number other than one, you should count and return the number of times the loop body is executed. (You don't need to worry about validating input, you may assume x will be integer valued.) 
+    
+    When you are finished, SAVE the script file and type submit() below.
+  AnswerTests: test_f4()
+  Hint: Look up.
+  Script: f4.R
+
+- Class: text
+  Output: |-
+    Sometiimes you may be tempted to create a while loop that looks like this:
+    
+    while(TRUE){}
+    
+    And stop execution some other way (a break statement). Don't, this is where you should use a repeat loop.
+
+## repeat
+
+## break
+- Class: text
+  Output: |-
+    The final looping structure we will discuss is the INFINITE LOOP structure. In R this is the REPEAT loop and it requires the use of a BREAK statement (typically inside of an IF statement). The structure of a REPEAT loop looks like this:
+    
+    repeat {
+        # CODE BLOCK
+        if (condition) {
+            break
+        }
+        # other code
+    }
+
+- Class: text
+  Output: |-
+    The repeat loop is useful for ensuring you enter the loop at least once or when you may need to interupt the process at some point other than the top of the loop. If you don't include any BREAK statements though, you will end up with an actual infinite loop and you'll need to stop execution some other way.
+
+## next
+- Class: text
+  Output: |-
+    Lastly, you should be aware of the keyword next.
+    
+    next, like break, stops the execution of the code block you are in, but rather than ending the loop altogether, it returns to the top of the loop and continues from there as long as no other loop ending conditions have been met.
+    
+    Though break and next are MOST OFTEN used in conjunction with repeat, you may, in fact, use them with for and while loops as well.
+
+## Leave this last question for submitting the logfile.
+#- Class: mult_question
+#  Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
+#  AnswerChoices: Yes;No
+#  CorrectAnswer: NULL
+#  AnswerTests: submit_log()
+#  Hint: hint
+

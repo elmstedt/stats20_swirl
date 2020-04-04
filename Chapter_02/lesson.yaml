@@ -1,0 +1,306 @@
+- Class: meta
+  Course: Stats 20
+  Lesson: Chapter 2 - Vectors
+  Author: Jake Elmstedt
+  Type: Standard
+  Organization: UCLA
+  Version: 2.4.4
+
+
+- Class: cmd_question
+  Output: |-
+    Since vectors are perhaps the most fundamental object in R, you will end up constructing innumerable vectors in your life. The easiest way to construct a vector is by combining any number of like objects with the 'c()' function.
+  
+    c(1, 1, 2, 3, 5, 8)
+  
+    c(2, 3, 5, 7, 11, 13, 17, 19)
+  
+    c(13, 2, 78, 23, 6, 8)
+  
+    etc.
+  
+    Construct a vector of the first five, non-negative, even numbers using the 'c()' function and store it in an object named even5.
+  CorrectAnswer: "even5 <- c(0, 2, 4, 6, 8)"
+  AnswerTests: omnitest(correctExpr="even5 <- c(0, 2, 4, 6, 8)")
+
+- Class: cmd_question
+  Output: |-
+    Enter 'even5' below to verify the result.
+  CorrectAnswer: "even5"
+  AnswerTests: omnitest(correctExpr="even5")
+
+# making sequences
+# e.g. identical(1:10, seq(1,10,1)) == FALSE
+# seq(), rep()
+
+
+- Class: cmd_question
+  Output: |-
+    
+    For short vectors with known contents, the 'c()' function works well and you should use it. But, if you had to construct a longer vector or a vector of dynamic length 'c()' will probably not cut it.
+  
+    Often you may need a sequence of numbers, the simplest way to create a sequence of numbers in R is by using the `:` operator, pronounced colon.
+  
+    Enter ?`:` below to see the help file for the colon operator.
+  CorrectAnswer: "?`:`"
+  AnswerTests: omnitest(correctExpr="?`:`")
+
+- Class: cmd_question
+  Output: Now, type 1:20 to see how it works.
+  CorrectAnswer: '1:20'
+  AnswerTests: omnitest(correctExpr='1:20')
+  Hint: Type 1:20 with no spaces. Make sure to use a regular colon and NOT a semi-colon.
+
+- Class: cmd_question
+  Output: That gave us every integer between (and including) 1 and 20. We could also use it to create a sequence of real numbers. For example, try pi:10.
+  CorrectAnswer: pi:10
+  AnswerTests: omnitest(correctExpr='pi:10')
+  Hint: Enter pi:10 and see what happens. pi is a predefined constant in R that takes on the value 3.1415....
+
+- Class: text
+  Output: The result is a vector of real numbers starting with pi (3.142...) and increasing in increments of 1. The upper limit of 10 is never reached, since the next number in our sequence would be greater than 10.
+
+- Class: cmd_question
+  Output: 'What happens if we do 15:1? Give it a try to find out.'
+  CorrectAnswer: '15:1'
+  AnswerTests: omnitest(correctExpr='15:1')
+  Hint: Type 15:1 and press Enter.
+
+- Class: text
+  Output: It counted backwards in increments of 1!
+  
+- Class: cmd_question
+  Output: |-
+    One limitation of the colon operator is it can only make integer sequences for which the values differ by 1.
+  
+    Say if instead of constructing a vector of the first five, non-negative, even numbers as before, you were tasked with making a vector of the first five-hundred, non-negative, even numbers.
+  
+    'seq()' is a generalization of the colon operator and it is exceptionally handy. 'seq()' constructs a sequence of values according to parameters you pass it.
+  
+    enter 'help(seq)' below and read up on how to use the 'seq()' function. Pay special attention to the Details section.
+  CorrectAnswer: "help(seq)"
+  AnswerTests: any_of_exprs('?seq', 'help(seq)', 'help("seq")')
+
+- Class: cmd_question
+  Output: |-
+    Let's make that vector of the first five-hundred, non-negative, even numbers and store it in an object named even500.
+  CorrectAnswer: "even500 <- seq(from = 0, length.out = 500, by = 2)"
+  AnswerTests: omnitest(correctExpr="even500 <- seq(from = 0, length.out = 500, by = 2)")
+  Hint: "You should use three arguments: 'from', 'by', and 'length.out'"
+
+- Class: cmd_question
+  Output: |-
+    One more function which is often useful in vector creation is the 'rep()' function.
+    
+    Enter '?rep' below to puruse the manual for the rep() function.
+  CorrectAnswer: "?rep"
+  AnswerTests: omnitest(correctExpr="?rep")
+  
+- Class: cmd_question
+  Output: |-
+    The simplest use case of rep() is to make a vector of a certain length containing all the same values.
+    
+    Enter 'rep("All work and no play makes Jake a dull boy", 1000)' below to see how rep() works.
+  CorrectAnswer: "rep(\"All work and no play makes Jake a dull boy\", 1000)"
+  AnswerTests: omnitest(correctExpr="rep(\"All work and no play makes Jake a dull boy\", 1000)")
+  
+- Class: cmd_question
+  Output: |-
+    A more usual case for this might be to create a vector of length 20 where every value is 1.
+    
+    Enter 'ones <- rep(1, 20)' below.
+  CorrectAnswer: "ones <- rep(1, 20)"
+  AnswerTests: omnitest(correctExpr="ones <- rep(1, 20)")
+
+- Class: cmd_question
+  Output: |-
+    Enter 'ones' below to verify the result.
+  CorrectAnswer: "ones"
+  AnswerTests: omnitest(correctExpr="ones")
+  
+- Class: cmd_question
+  Output: |-
+    But, more interstingly, rep() can repeat a vector.
+    
+    Enter 'rep(1:3, 4)' below.
+  CorrectAnswer: "rep(1:3, 4)"
+  AnswerTests: omnitest(correctExpr="rep(1:3, 4)")
+  
+- Class: cmd_question
+  Output: |-
+    Alternately, rep() can repeat the elements of a vector.
+    
+    Enter 'rep(1:3, each = 4)' below.
+  CorrectAnswer: "rep(1:3, each = 4)"
+  AnswerTests: omnitest(correctExpr="rep(1:3, each = 4)")
+  
+- Class: cmd_question
+  Output: |-
+    Lastly, rep() can repeat the elements of a vector a varying number of times.
+    
+    Enter 'rep(seq(-2,2, 1), times = 1:5)' below to see an example of this.
+  CorrectAnswer: "rep(seq(-2,2, 1), times = 1:5)"
+  AnswerTests: omnitest(correctExpr="rep(seq(-2,2, 1), times = 1:5)")
+
+- Class: cmd_question
+  Output: |-
+    Lastly, rep() can repeat the elements of a vector a varying number of times.
+    
+    Enter 'rep(seq(-2,2, 1), times = 1:5)' below to see an example of this.
+  CorrectAnswer: "rep(seq(-2,2, 1), times = 1:5)"
+  AnswerTests: omnitest(correctExpr="rep(seq(-2,2, 1), times = 1:5)")
+
+# Vector functions
+# max(), min(), range()
+# diff(), cumsum()
+# prod(), sum()
+# sort(), order()
+- Class: text
+  Output: |-
+    R comes with many prebuilt functions for you to use. More often than not, any common operations will have a function available with an obvious name already assigned.  Some common functions for vectors include:
+    
+    length(); Will tell you the number of elements in a vector.
+    
+    min(), max(), range(); which return the maximum value, minimum value, and a vector containing the minimum and maximum values respectively.
+    
+    diff() and cumsum(); which return the difference between adjacent values and the cumulative sum of a vector respectively.
+    
+    sum() and prod(); which return the sum and product, respectively, of all the elements of a vector passed to them.
+    
+    sort() which return a sorted version of the vector.
+    
+- Class: cmd_question
+  Output: |-
+    Let's look at the vector 'heights' now. Type heights below and press enter.
+  CorrectAnswer: "heights"
+  AnswerTests: omnitest(correctExpr="heights")
+
+- Class: cmd_question
+  Output: |-
+    Write R code to find the number of elements in the vector heights.
+  CorrectAnswer: "length(heights)"
+  AnswerTests: omnitest(correctExpr="length(heights)")
+  Hint: "What function finds the number of elements?"
+
+
+- Class: cmd_question
+  Output: |-
+    Enter R code to find the minimum height.
+  CorrectAnswer: "min(heights)"
+  AnswerTests: omnitest(correctExpr="min(heights)")
+  Hint: "What function finds the minimum?"
+
+- Class: cmd_question
+  Output: |-
+    Enter R code to find the maximum height.
+  CorrectAnswer: "max(heights)"
+  AnswerTests: omnitest(correctExpr="max(heights)")
+  Hint: "What function finds the maximum?"
+
+- Class: cmd_question
+  Output: |-
+    Enter R code to find the to create a variable called sorted_heights which, perhaps unsurprisingly, contains the values in the heights object sorted.
+  CorrectAnswer: "sorted_heights <- sort(heights)"
+  AnswerTests: omnitest(correctExpr="sorted_heights <- sort(heights)")
+  Hint: "Make sure you are storing the sorted vector in an object named sorted_heights"
+      
+#statistical vector functions
+# mean(), median(), cor(), sd(), var(), IQR(), fivenum(), summary()
+- Class: text
+  Output: |-
+    Likewise, R has many core statistical functions available. For instance:
+    
+    mean(), median(), cor(), sd(), var(), IQR(), fivenum(), summary() are all at your disposal and do exactly what you would expect.
+
+- Class: cmd_question
+  Output: |-
+    Enter R code to find the mean height.
+  CorrectAnswer: "mean(heights)"
+  AnswerTests: omnitest(correctExpr="mean(heights)")
+  Hint: "What function finds the mean?"
+  
+- Class: cmd_question
+  Output: |-
+    Enter R code to find the median height.
+  CorrectAnswer: "median(heights)"
+  AnswerTests: omnitest(correctExpr="median(heights)")
+  Hint: "What function finds the median?"
+
+#- Class: cmd_question
+#  Output: |-
+#    Use the summary function on the heights vector to, well, summarize the contents of the vector.
+#  CorrectAnswer: "summary(heights)"
+#  AnswerTests: omnitest(correctExpr="summary(heights)")
+#  Hint: "Use summary."
+
+- Class: cmd_question
+  Output: |-
+    You can extract an element from a vector using square brackets and the index of the element you want. Type heights[24] to get the 24th value from the heights vector.
+  CorrectAnswer: "heights[24]"
+  AnswerTests: omnitest(correctExpr="heights[24]")
+  Hint: "Put the square brackets immediately after the name of the vector with the index you want to extract inside."
+
+- Class: text
+  Output: |-
+    R is a vectorized language. You can think of vectorization as doing things in parallel rather than in sequence.
+    
+    Note: Vectorization is NOT actually running things in parallel, R is a single threaded language, but you should THINK of it as all happening at once rather than one at a time in a loop.
+    
+    So, when we think about adding 2 to a vector in R, we don't concern ourselves with the details of how R does this for each element, rather we think about it happening all at once.
+    
+- Class: cmd_question
+  Output: |-
+    Not every function in R is what we would call vectorized though. We'll use the logical vector named v6 to explore the idea of vectorization. Type v6 below to have a look at it.
+  CorrectAnswer: "v6"
+  AnswerTests: omnitest(correctExpr="v6")
+  Hint: "Just type: v6 and press enter."  
+    
+- Class: cmd_question
+  Output: |-
+    There is a function in R called, isTRUE(). Call isTRUE() with v6 as its argument.
+  CorrectAnswer: "isTRUE(v6)"
+  AnswerTests: omnitest(correctExpr="isTRUE(v6)")
+  Hint: "Just type: isTRUE(v6) and press enter."  
+    
+- Class: text
+  Output: |-
+    Thats right, the vector consisting of the values TRUE, FALSE, and NA is not, in fact, the same thing as the value TRUE. What we might want to do though is find out for each individual element if it is the same thing as TRUE. As part of one of your homework assignments you'll be tasked with writing a vectorized version of this function which uses a different solution than what we're about to do here.
+    
+    In R, we use the verb "apply" when discussing running the same function on each element of some type of data object, as in: "apply the function isTRUE() to each element of the vector v6."
+    
+    There are many functions in the apply family, but the one we are going to use today is vapply().
+    
+- Class: text
+  Output: |-
+    The syntax for vapply() is:
+    
+    The structure of a `vapply()` function call looks like this:
+    
+    vapply(X, FUN, FUN.VALUE = type, ...)
+    
+    Where X is the vector containing the elements to which you want to apply the function `FUN`. 
+    
+    FUN.VALUE specifies the type of return value you expect the `FUN` function to output, you can think of this as a prototype. 
+    
+    In general usage we will set `FUN.VALUE` to be the return of a class constructor function, like `logical(n)`, `numeric(n)`, or `character(n)`, with `n` being the length of the vector returned by \emph{each} individual call to the function (not the \emph{total} number of values we expect from `vapply()`).
+    
+    Lastly, the `...` allow us to pass additional arguments to the function, `FUN`, if needed.
+
+- Class: cmd_question
+  Output: |-
+    So, let's use vapply() to apply the function isTRUE() to every element of v6.
+    
+    Remember to include the prototype for the return value you expect from each call to isTRUE().
+    
+    And, there's no need to used named arguments here, just put values in for the function arguments.
+  CorrectAnswer: "vapply(v6, isTRUE, logical(1))"
+  AnswerTests: omnitest(correctExpr="vapply(v6, isTRUE, logical(1))")
+  Hint: "The first argument should be v6, the second isTRUE, and the third a length 1 logical vector." 
+
+#- Class: mult_question
+#  Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
+#  AnswerChoices: Yes;No
+#  CorrectAnswer: NULL
+#  AnswerTests: submit_log()
+#  Hint: hint
+

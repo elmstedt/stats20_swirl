@@ -1,0 +1,378 @@
+- Class: meta
+  Course: Stats 20
+  Lesson: Chapter S2 - Manipulating Strings
+  Author: Jake Elmstedt
+  Type: Standard
+  Organization: UCLA
+  Version: 1.0.0
+
+
+
+- Class: text
+  Output: |-
+    The main type of data R gives us to process text strings is character. Formally, the class of object that holds character strings in R is "character". We express character strings using double quotes:
+
+    "a character string using double quotes"
+
+- Class: text
+  Output: |-
+    We cannot insert double quotes in a string with double quotes (Don’t do this!):
+
+    "This "is" totally unacceptable!"
+
+    In order to put double quotes inside of a character vector, we need to "escape" them like so:
+    
+    "This \"is\" great!"
+    
+- Class: text
+  Output: |-
+    Besides the double quotes "", R provides the function character() to create character strings. 
+    
+    More specifically, character() is the function that creates vector objects of type "character".
+
+- Class: cmd_question
+  Output: |-
+    Use the command character(1) to create a length-1 character vector called chrvec.
+  CorrectAnswer: chrvec <- character(1)
+  AnswerTests: omnitest(correctExpr='chrvec <- character(1)')
+  Hint: chrvec <- character(1)
+
+- Class: mult_question
+  Output: What do you think chrvec contains?
+  AnswerChoices: ;"";Nothing.
+  CorrectAnswer: ""
+  AnswerTests: omnitest(correctVal='""')
+  Hint: What is the simplest character string?
+
+- Class: cmd_question
+  Output: |-
+    This is the most basic string: the empty string produced by consecutive quotation marks: "".
+    
+    Technically, "" is a string with no characters in it, hence the name empty string.
+    
+    You can also create an emptry string explicitly. Create the object empty_str by assigning to it consecutive quotation marks.
+  CorrectAnswer: empty_str <- ""
+  AnswerTests: omnitest(correctExpr='empty_str <- ""')
+  Hint: Type empty_str <- "" and press enter.
+
+- Class: text
+  Output: |-
+    Note that the EMPTY STRING is NOT the same thing as the EMPTY CHARACTER VECTOR.
+    
+    Let's look more closely at empty_str.
+
+- Class: cmd_question
+  Output: Display empty_str below.
+  CorrectAnswer: empty_str
+  AnswerTests: any_of_exprs('empty_str')
+  Hint: Type empty_str and press enter.
+
+- Class: mult_question
+  Output: How many characters are in empty_str?
+  AnswerChoices: 0;1;-1;NULL;NA
+  CorrectAnswer: 0
+  AnswerTests: omnitest(correctVal='0')
+  Hint: It is EMPTY after all...
+
+- Class: cmd_question
+  Output: Use the appropriate command to verify the number of characters in empty_str.
+  CorrectAnswer: nchar(empty_str)
+  AnswerTests: omnitest(correctExpr='nchar(empty_str)')
+  Hint: Use the appropriate command to verify the Number of CHARacters in empty_str.
+
+- Class: mult_question
+  Output: What is the length of empty_str?
+  AnswerChoices: 0;1;-1;NULL;NA
+  CorrectAnswer: 1
+  AnswerTests: omnitest(correctVal='1')
+  Hint: Remember, empty_str is really a vector. How many elements does this vector have?
+
+- Class: cmd_question
+  Output: Verify the length of empty_str with the appropriate command.
+  CorrectAnswer: length(empty_str)
+  AnswerTests: omnitest(correctExpr='length(empty_str)')
+  Hint: Verify the LENGTH of empty_str with the appropriate command.
+
+- Class: cmd_question
+  Output: |-
+    I mentioned before the idea of an EMPTY CHARACTER VECTOR. This is a character vector with length 0.
+    
+    Create an emty character vector named empty_vec.
+  CorrectAnswer: empty_vec <- character(0)
+  AnswerTests: omnitest(correctExpr='empty_vec <- character(0)')
+  Hint: Change something about how you created emtpy_vec.
+
+- Class: text
+  Output: |-
+    NOTE: Typically when we use a function like character() to create empty strings or empty vectors, we will call the function without explicitly naming the length argument. E.g.:
+    
+    character(0)
+    
+    character(100)
+    
+    etc.
+    
+    This is okay to do because character() only takes one argument and if you program long enough in R it just becomes one of those things you don't really need to say to be understood or see to understand.
+
+- Class: cmd_question
+  Output: Verify the length of empty_vec is 0 using the appropriate command.
+  CorrectAnswer: length(empty_vec)
+  AnswerTests: omnitest(correctExpr='length(empty_vec)')
+  Hint: length(empty_vec)
+
+- Class: mult_question
+  Output: What do you think the result of nchar(empty_vec) will be?
+  AnswerChoices: 0;1;NA;NULL;integer(0)
+  CorrectAnswer: integer(0)
+  AnswerTests: omnitest(correctVal='integer(0)')
+  Hint: While there are, in fact, NO characters in an empty vector, you're looking for something which denotes the idea of NOTHING to the computer. Not just any NOTHING will do however. What "type" of answer would you expect nchar() to provide? WHich answer suggests a result of that type while also suggesting nothing?
+
+- Class: mult_question
+  Output: |- 
+    Let's return to our character vector, chrvec.
+    
+    If you recall, chrvec is a length-1 character vector with its one element being an empty string.
+    
+    What do you think the results of chrvec[4] <- "Element 4" will be?
+  AnswerChoices: An error, chrvec only has one element so it is meaningless to assign something to the 4th element.; chrvec becomes a length-2 character vector with an empty string in the first element and the string "Element 4" in the second element.;chrvec becomes a length-4 character vector with an empty string in the first element and the string "Element 4" in the fourth element.;
+  CorrectAnswer: chrvec becomes a length-4 character vector with an empty string in the first element and the string "Element 4" in the fourth element.
+  AnswerTests: omnitest(correctVal='chrvec becomes a length-4 character vector with an empty string in the first element and the string "Element 4" in the fourth element.')
+  Hint: Remember, computers will always try to do what you ask.
+
+- Class: mult_question
+  Output: After running the command chrvec[4] <- "Element 4", what will be the contents of chrvec[2] and chrvec[3]?
+  AnswerChoices: NA; ""; NULL; character(0)
+  CorrectAnswer: NA
+  AnswerTests: omnitest(correctVal='NA')
+  Hint: It created a length-4 vector, but didn't have data available for every element it created. You're looking for something which is Not Available...
+
+- Class: cmd_question
+  Output: Go ahead and actually run the command chrvec[4] <- "Element 4".
+  CorrectAnswer: chrvec[4] <- "Element 4"
+  AnswerTests: omnitest(correctExpr='chrvec[4] <- "Element 4"')
+  Hint: chrvec[4] <- "Element 4"
+
+- Class: cmd_question
+  Output: Now call str(chrvec) to get a better look at it.
+  CorrectAnswer: str(chrvec)
+  AnswerTests: omnitest(correctExpr='str(chrvec)')
+  Hint: str(chrvec)
+
+- Class: cmd_question
+  Output: |-
+    NA is an interesting concept in R. Even if you have programmed extensively in other languages, you may not have encounted this concept before.
+    
+    Look at the help file on NA and read through at least the Description section.
+  CorrectAnswer: ?NA
+  AnswerTests: any_of_exprs('?NA','help(NA)')
+  Hint: Try ?NA or help(NA)
+
+- Class: exact_question
+  Output: How many types of NA constants are there?
+  AnswerTests: expr_identical_to('5')
+  Hint: When counting, don't forget the default type.
+
+- Class: cmd_question
+  Output: I've given you a vector called preamble, which contains the preamble to the Constitution of the United States of America. Display the contents of preamble below.
+  CorrectAnswer: preamble
+  AnswerTests: any_of_exprs('preamble')
+  Hint: Type preamble and press enter.
+
+- Class: cmd_question
+  Output: You'll no doubt notice they used some strange capitalizations in 1776. Let's make everything uppercase with the toupper() function.
+  CorrectAnswer: toupper(preamble)
+  AnswerTests: omnitest(correctExpr='toupper(preamble)')
+  Hint: toupper(preamble)
+
+- Class: cmd_question
+  Output: Now, let's try making everything lowercase with the tolower() function.
+  CorrectAnswer: tolower(preamble)
+  AnswerTests: omnitest(correctExpr='tolower(preamble)')
+  Hint: tolower(preamble)
+
+- Class: cmd_question
+  Output: |-
+    Now, there is a third basse R function which deals with upper and lower cases, and that is casefold.
+    
+    Try calling just casefold WITHOUT any arguments and WITHOUT any open or closing parentheses.
+    
+    This will show you the definition of the function in the console.
+  CorrectAnswer: casefold
+  AnswerTests: omnitest(correctExpr='casefold')
+  Hint: Just type casefold and press enter.
+
+- Class: text
+  Output: |-
+    Notice the body of the function is just
+    
+    if (upper) toupper(x) else tolower(x)
+    
+    So, it's checking the argument upper, and if upper is set to true it calls toupper, otherwise it calls tolower.
+    
+    This is an example of a wrapper function (one function wrapped around another).
+
+- Class: cmd_question
+  Output: You have a character string in your environment called hello, display it below.
+  CorrectAnswer: hello
+  AnswerTests: any_of_exprs('hello')
+  Hint: Type hello and press enter.
+
+- Class: cmd_question
+  Output: |-
+    You can swap characters for alternate characters using chartr.
+    
+    Try chartr(old = "aeio", new = "4310", hello) to see how it works.
+  CorrectAnswer: chartr(old = "aeio", new = "4310", hello)
+  AnswerTests: omnitest(correctExpr='chartr(old = "aeio", new = "4310", hello)')
+  Hint: chartr(old = "aeio", new = "4310", hello)
+
+- Class: text
+  Output: chartr takes three character strings as arguments. It takes the string in hello, and wherever it finds the first character of the old argument it replaces it with the first character of the new argument and so on.
+
+- Class: cmd_question
+  Output: |-
+    The last housekeeping thing we're going to do is set our random seed.
+
+    Please run the command: set.seed(123)
+  CorrectAnswer: set.seed(123)
+  AnswerTests: omnitest(correctExpr='set.seed(123)')
+  Hint: set.seed(123)
+
+- Class: text
+  Output: This puts the random number generator into a known state so we can reproduce random results.
+
+- Class: cmd_question
+  Output: |-
+    Now, lets make  a vector called plaintext which is the combination of all the upper and lower case letters together along with a space character.
+
+    Use plaintext <- paste(c(LETTERS, letters, " "),  collapse = "") to accomplish this.
+  CorrectAnswer: plaintext <- paste(c(LETTERS, letters, " "),  collapse = "")
+  AnswerTests: omnitest(correctExpr='plaintext <- paste(c(LETTERS, letters, " "),  collapse = "")')
+  Hint: plaintext <- paste(c(LETTERS, letters, " "),  collapse = "")
+
+- Class: cmd_question
+  Output: |-
+    Next, we're going to make our cipher.
+
+    Use cipher <- paste(sample(c(LETTERS, letters, " ")),  collapse = "") scramble the letters.
+    
+    NOTE: If you run this command again, you'll get different results. If you need to re-create the cipher, remember to reset the seed first.
+  CorrectAnswer: cipher <- paste(sample(c(LETTERS, letters, " ")),  collapse = "")
+  AnswerTests: omnitest(correctExpr='cipher <- paste(sample(c(LETTERS, letters, " ")),  collapse = "")')
+  Hint: cipher <- paste(sample(c(LETTERS, letters, " ")),  collapse = "")
+
+- Class: cmd_question
+  Output: |-
+    Now, we can encrypt our transmission!
+
+    Here is a hint which we'll use occasionally from now on to speed things along:
+    
+    Normally an assignment operation like x <- 10 doesn't produce any output. However, if you enclose it in a set of parentheses, it will do the assignment and print the result. Try this now:
+    
+    (secret_message <- chartr(old = plaintext, new = cipher, preamble))
+  CorrectAnswer: (secret_message <- chartr(old = plaintext, new = cipher, preamble))
+  AnswerTests: omnitest(correctExpr='(secret_message <- chartr(old = plaintext, new = cipher, preamble))')
+  Hint: Type (secret_message <- chartr(old = plaintext, new = cipher, preamble)) and press enter.
+
+- Class: cmd_question
+  Output: |-
+    What a mess!
+    
+    Let's see if we can decode it... Without saving it to a new variable, see if you can unscramble the secret message.
+  CorrectAnswer: chartr(old = cipher, new = plaintext, secret_message)
+  AnswerTests: omnitest(correctExpr='chartr(old = cipher, new = plaintext, secret_message)')
+  Hint: Type chartr(old = cipher, new = plaintext, secret_message) and press enter.
+
+- Class: text
+  Output: |-
+    Next we will look at ways to extract parts of strings. There are two base R functions for this:
+    
+    substr()
+    
+    substring()
+    
+    They are very similar, but behave differently in subtle ways.
+
+- Class: cmd_question
+  Output: |- 
+    First up is substr().
+    
+    substr(x = preamble, start = 37, stop = 73)
+  CorrectAnswer: substr(x = preamble, start = 37, stop = 73)
+  AnswerTests: omnitest(correctExpr='substr(x = preamble, start = 37, stop = 73)')
+  Hint: substr(x = preamble, start = 37, stop = 73)
+
+- Class: cmd_question
+  Output: |- 
+    Pretty straight forward, we pulled out the 37th through the 73rd characters of the preamble string.
+    
+    Next try:
+    
+    substring(text = preamble, first = 37, last = 73)
+  CorrectAnswer: substring(text = preamble, first = 37, last = 73)
+  AnswerTests: omnitest(correctExpr='substring(text = preamble, first = 37, last = 73)')
+  Hint: substring(text = preamble, first = 37, last = 73)
+
+- Class: cmd_question
+  Output: |- 
+    Same result, see I told you they were very similar!
+    
+    going back to substr, try
+    
+    substr(x = preamble, start = 1, stop = 1:13)
+  CorrectAnswer: substr(x = preamble, start = 1, stop = 1:13)
+  AnswerTests: omnitest(correctExpr='substr(x = preamble, start = 1, stop = 1:13)')
+  Hint: substr(x = preamble, start = 1, stop = 1:13)
+
+- Class: cmd_question
+  Output: |- 
+    Weird... It just gives us the first letter of the preamble.
+    
+    Let's try the same thing with substring:
+    
+    substring(text = preamble, first = 1, last = 1:13)
+  CorrectAnswer: substring(text = preamble, first = 1, last = 1:13)
+  AnswerTests: omnitest(correctExpr='substring(text = preamble, first = 1, last = 1:13)')
+  Hint: substring(text = preamble, first = 1, last = 1:13)
+
+- Class: text
+  Output: |- 
+    Well, that's different! I did say they were different in subtle ways.
+    
+    substring can vectoized first and last over a single string, while substr cannot.
+
+- Class: cmd_question
+  Output: |-
+    The next useful string function is strsplit. It is, unsuprisingly, used to split a string.
+    
+    Perhaps the most obvious usecase for this is to divide a string into individual words (though there are countless others as well).
+    
+    Try this now with the preamble object, using x = preamble and split = " ".
+  CorrectAnswer: strsplit(x = preamble, split = " ")
+  AnswerTests: omnitest(correctExpr='strsplit(x = preamble, split = " ")')
+  Hint: strsplit(x = preamble, split = " ")
+
+- Class: cmd_question
+  Output: |-
+    You might notice the result is a list object (the first line of the output is [[1]] which gives this away).
+    
+    To make it just a regular vector, we can call unlist on it, wrap your previous function call with the unlist function and store the result in a vector called words.
+  CorrectAnswer: words <- unlist(strsplit(x = preamble, split = " "))
+  AnswerTests: omnitest(correctExpr='words <- unlist(strsplit(x = preamble, split = " "))')
+  Hint: words <- unlist(strsplit(x = preamble, split = " "))
+
+- Class: cmd_question
+  Output: |-
+    strsplit is basically the inverse operation of paste.
+    
+    Try paste(words, collapse = " ")
+  CorrectAnswer: paste(words, collapse = " ")
+  AnswerTests: omnitest(correctExpr='paste(words, collapse = " ")')
+  Hint: paste(words, collapse = " ")
+
+#- Class: mult_question
+#  Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
+#  AnswerChoices: Yes;No
+#  CorrectAnswer: NULL
+#  AnswerTests: submit_log()
+#  Hint: hint

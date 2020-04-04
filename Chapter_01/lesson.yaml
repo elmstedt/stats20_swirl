@@ -1,0 +1,196 @@
+- Class: meta
+  Course: Stats 20
+  Lesson: Chapter 1 - R Basics
+  Author: Jake Elmstedt
+  Type: Standard
+  Organization: UCLA
+  Version: 2.4.4
+
+
+# Environment Functions
+# getwd(), setwd(), ls(), rm(), dir()
+- Class: text
+  Output: Your working directory is the default folder (or directory) from which R reads and writes data. getwd() Returns the current working directory, and setwd("~/Desktop") changes working directory to desktop. You can also get\set the working directory from the menu bar in R or RStudio. Since different data sets may use the same variable names, it is helpful to use a different working directory for each project or assignment.
+  
+- Class: cmd_question
+  Output: Let's find where your working directory is set. Type "getwd()" then press enter.
+  CorrectAnswer: "getwd()"
+  AnswerTests: omnitest(correctExpr="getwd()")
+
+- Class: cmd_question
+  Output: |-
+    There are many ways to get help in R. If you wanted to learn about how to use the function dir(), you can use the help() function.
+    
+    Enter help(dir) below to see the help file for the dir() function.
+  CorrectAnswer: "help(dir)"
+  AnswerTests: omnitest(correctExpr="help(dir)")
+
+- Class: cmd_question
+  Output: You can see a list of the files in your current working directory with the function dir(). Type "dir()" and press enter.
+  CorrectAnswer: "dir()"
+  AnswerTests: omnitest(correctExpr="dir()")
+  
+#dir.create(paste0(getwd(), "/my_proj_dir"))
+#setwd()
+
+- Class: text
+  Output: ls() returns a vector of character strings giving the names of the objects in the specified environment. When invoked with no argument at the top level prompt, ls() shows what data sets and functions a user has defined.
+
+- Class: cmd_question
+  Output: Let's see what objects are currently in your environment. Type "ls()" then press enter.
+  CorrectAnswer: "ls()"
+  AnswerTests: omnitest(correctExpr="ls()")
+
+- Class: text
+  Output: There are objects which exist beyond your environment though. We will talk most of these later, but of interest to you might be some of the built-in constants in R.
+
+- Class: text
+  Output: |-
+    R has five built-in constants. The following constants are available:
+    
+    LETTERS: the 26 upper-case letters of the Roman alphabet;
+    
+    letters: the 26 lower-case letters of the Roman alphabet;
+    
+    month.abb: the three-letter abbreviations for the English month names;
+    
+    month.name: the English names for the months of the year;
+    
+    pi: the ratio of the circumference of a circle to its diameter.
+
+- Class: cmd_question
+  Output: Let's look at letters, type "letters" then press enter.
+  CorrectAnswer: "letters"
+  AnswerTests: omnitest(correctExpr="letters")
+  
+- Class: cmd_question
+  Output: Now, let's look at pi, type "pi" then press enter.
+  CorrectAnswer: "pi"
+  AnswerTests: omnitest(correctExpr="pi")
+
+- Class: mult_question
+  Output: What do you think will happen when if we try to change the value of pi, say by typing "pi <- 3"?
+  AnswerChoices: Nothing.; An error.; We create a new object named pi with the value 3 which R will then use rather than the built-in value.; We change the value of the constant pi wherever R stores it.; 
+  CorrectAnswer: We create a new object named pi with the value 3 which R will then use rather than the built-in value.
+  AnswerTests: omnitest(correctVal="We create a new object named pi with the value 3 which R will then use rather than the built-in value.")
+
+- Class: cmd_question
+  Output: That's great! Let's muck stuff up a bit though. Let's change the value of pi to be 3. Type "pi <- 3" and press enter.
+  CorrectAnswer: "pi <- 3"
+  AnswerTests: omnitest(correctExpr="pi <- 3")
+
+- Class: cmd_question
+  Output: Let's test what happens when we call pi. Type "pi" then press enter.
+  CorrectAnswer: "pi"
+  AnswerTests: omnitest(correctExpr="pi")
+
+- Class: cmd_question
+  Output: Well, that's a problem! We'd better fix that before we do something crazy like try to calculate the area of a circle. rm() can be used to remove objects. These can be specified successively as character strings, or in the character vector list, or through a combination of both. All objects thus specified will be removed. Let's get rid of the problematic pi by typing "rm(pi)" then pressing enter.
+  CorrectAnswer: "rm(pi)"
+  AnswerTests: omnitest(correctExpr="rm(pi)")
+
+- Class: cmd_question
+  Output: Now, let's check that pi is back to normal. Type "pi" then press enter.
+  CorrectAnswer: "pi"
+  AnswerTests: omnitest(correctExpr="pi")
+
+# Name masking
+
+
+- Class: text
+  Output: |-
+    R can do basic arithmetic with the +, -, *, /, and ^ operators. R follows the standard order of operations from basic arithmetic -- PEMDAS (or BEDMAS).
+  
+    Parentheses (or Brackets)
+  
+    Exponents
+  
+    Multiplication and Division
+  
+    Addition and Subtraction
+    
+    Use R to compute the following:
+  
+- Class: cmd_question
+  Output: 16 to the fifth power divided by six to the eigth power.
+  CorrectAnswer: "16 ^ 5 / 6 ^ 8"
+  AnswerTests: calculates_same_value("16 ^ 5 / 6 ^ 8")
+
+- Class: cmd_question
+  Output: 38,646 - 5,014
+  CorrectAnswer: "38646 - 5014"
+  AnswerTests: omnitest(correctExpr="38646 - 5014")
+  
+- Class: cmd_question
+  Output: 17 to the one-third power
+  CorrectAnswer: "17 ^ (1 / 3)"
+  AnswerTests: omnitest(correctExpr="17 ^ (1 / 3)")
+  
+- Class: text
+  Output: R has several built-in functions for doing common mathematical expressions. Use them to compute the following
+
+- Class: cmd_question
+  Output: e to the negative three
+  CorrectAnswer: "exp(-3)"
+  AnswerTests: omnitest(correctExpr="exp(-3)")
+  
+- Class: cmd_question
+  Output: The square-root of 117
+  CorrectAnswer: "sqrt(117)"
+  AnswerTests: omnitest(correctExpr="sqrt(117)")
+  
+- Class: cmd_question
+  Output: Logarithm base-4 of 30
+  CorrectAnswer: "log(30, 4)"
+  AnswerTests: any_of_exprs("log(30, 4)", "logb(30, 4)", "log(30, base = 4)", "logb(30, base = 4)")
+  
+# basic arithmatic
+# modular arithmatic
+# order of operations
+
+
+
+- Class: text
+  Output: |-
+    Suppose Pawnee Parks and Recreation employee Jerry Gergich transcribed a mathematical expression from a sheet of paper into R by typing the following command:
+
+    jerry <- 3 + 4 ^ - 1 / 2 * 5
+    
+    State auditor Ben Wyatt looked at the expression on the paper and noticed that the expression should equal 17.5.
+
+- Class: mult_question
+  Output: Does the object jerry contain the correct value?
+  AnswerChoices: Yes;No
+  CorrectAnswer: No
+  AnswerTests: omnitest(correctVal='No')
+
+
+- Class: cmd_question
+  Output: Using proper notation, clarify (add parentheses) the assignment above the way R is interpretting what Jerry entered.
+  CorrectAnswer: "jerry <- 3 + (((4 ^ -1) / 2) * 5)"
+  AnswerTests: any_of_exprs("jerry <- 3 + (((4 ^ -1) / 2) * 5)", "jerry <- 3 + ((4 ^ (-1) / 2) * 5)", "jerry <- 3 + (((4 ^ (-1)) / 2) * 5)")
+  Hint: "There should be three sets of parentheses."
+
+- Class: cmd_question
+  Output: State auditor Ben Wyatt looked at the expression on the paper and noticed that the expression should equal 17.5. How would you fix Jerry's command to obtain the same result as Ben?
+  CorrectAnswer: "jerry <- (3 + 4 ^ - (1 / 2)) * 5"
+  AnswerTests: any_of_exprs("jerry <- (3 + 4 ^ - (1 / 2)) * 5", "jerry <- (3 + 4 ^ (-1 / 2)) * 5")
+  Hint: "There should be two sets of parentheses."
+
+- Class: script
+  Output: Using the basic arithmetic operators, write a function to calculate the area of a circle with radius r. A tab should have opened named area_circle.R, write your code in the template supplied. When you are finished, save the file, then type "submit()" at the command prompt below and hit enter.
+  AnswerTests: test_area()
+  Hint: You can Google the formula if you don't know it. Also, don't forget to SAVE your file before trying to submit!
+  Script: area_circle.R
+
+- Class: cmd_question
+  Output: Use your function to calculate the area of a circle with radius 5.
+  CorrectAnswer: "area_circle(r = 5)"
+  AnswerTests: omnitest(correctExpr='area_circle(r = 5)')
+
+#- Class: mult_question
+#  Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
+#  AnswerChoices: Yes;No
+#  CorrectAnswer: NULL
+#  AnswerTests: submit_log()
+#  Hint: hint

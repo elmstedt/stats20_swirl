@@ -1,0 +1,7 @@
+base64enc
+ggplot2
+grid
+gridExtra
+gapminder
+crayon
+beepr

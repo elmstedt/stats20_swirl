@@ -1,0 +1,336 @@
+- Class: meta
+  Course: Stats 20
+  Lesson: Chapter S1 - Displaying Strings
+  Author: Jake Elmstedt
+  Type: Standard
+  Organization: UCLA
+  Version: 1.0.0
+
+- Class: text
+  Output: |-
+    Let's get started by entering some strings in R. 
+
+    First, you should ALWAYS use double quotes (") rather than single quotes (').
+
+    Unfortunately if your string has " inside it, R will interpret the double quote as "this is the end of the string", not as "this is the character "".
+
+    You'll have to escape any double quotes inside the string using a backslash (i.e. \").
+
+    To practice, you are going to enter a few lines from Lewis Carroll's Alice's Adventures in Wonderland. Alice has just arrived at the tea party...
+   
+    Following the guidelines for using quotes, define the three strings, line1, line2 and line3:
+
+- Class: cmd_question
+  Output: |-
+    Define line1 as:
+    
+    The table was a large one, but the three were all crowded together at one corner of it:
+  CorrectAnswer: line1 <- "The table was a large one, but the three were all crowded together at one corner of it:"
+  AnswerTests: omnitest(correctExpr='line1 <- "The table was a large one, but the three were all crowded together at one corner of it:"')
+  Hint: Use double quotes.
+
+- Class: cmd_question
+  Output: |-
+    Define line2 as:
+    
+    "No room! No room!" they cried out when they saw Alice coming.
+  CorrectAnswer: line2 <- "\"No room! No room!\" they cried out when they saw Alice coming."
+  AnswerTests: omnitest(correctExpr= 'line2 <- "\\\"No room! No room!\\\" they cried out when they saw Alice coming."')
+  Hint: Escape the quotes!
+
+- Class: cmd_question
+  Output: |-
+    Define line3 as:
+    
+    "There's plenty of room!" said Alice indignantly, and she sat down in a large arm-chair at one end of the table.
+  CorrectAnswer: line3 <- "\"There's plenty of room!\" said Alice indignantly, and she sat down in a large arm-chair at one end of the table."
+  AnswerTests: omnitest(correctExpr='line3 <- "\\\"There\'s plenty of room!\\\" said Alice indignantly, and she sat down in a large arm-chair at one end of the table."')
+  Hint: Use the the escape character to insert the appropriate string literal.
+  
+- Class: cmd_question
+  Output: Take a look at line2, the string you just defined, by typing line2 below.
+  CorrectAnswer: line2
+  AnswerTests: omnitest(correctExpr='line2')
+  Hint: Type line2 and press enter.
+
+- Class: cmd_question
+  Output: |-
+    When you ask R for line2 it is actually calling print(line2) and the print() method for strings displays strings as you might enter them. If you want to see the string it represents you'll need to use a different function -- writeLines().
+    
+    You can pass writeLines() a vector of strings and it will print them to the screen, each on a new line. This is a great way to check the string you entered really does represent the string you wanted. Try this now with all three lines.
+  CorrectAnswer: writeLines(c(line1, line2, line3))
+  AnswerTests: omnitest(correctExpr='writeLines(c(line1, line2, line3))')
+  Hint: Use the writeLines function with a vector containing line1, line2, and line3.
+
+- Class: cmd_question
+  Output: By default writeLines() separates the strings with a newline, which you can change using the sep argument. Write lines to the screen again, but this time set the sep argument to a space, " ".
+  CorrectAnswer: writeLines(c(line1, line2, line3), sep = " ")
+  AnswerTests: omnitest(correctExpr='writeLines(c(line1, line2, line3), sep = " ")')
+  Hint: Use the writeLines function with a vector containing line1, line2, and line3, but this time add another argument to the function call named sep, and pass it a space character.
+
+
+- Class: cmd_question
+  Output: |-
+    Finally, try using writeLines() on the string "hello\n\U263A". You'll learn about what's going on here in the next exercise.
+    
+    Note: Depending on your operating system you may, or may not, see what is intended.
+  CorrectAnswer: writeLines("hello\n\U263A")
+  AnswerTests: omnitest(correctExpr='writeLines("hello\n\U263A")')
+  Hint: Pass the string "hello\n\U263A" to the writeLines function.
+
+- Class: text
+  Output: Perfect! The function cat() is very similar to writeLines(), but by default separates elements with a space, and will attempt to convert non-character objects to a string. We won't use it in this course, but you might see it in other people's code.
+
+- Class: text
+  Output: |-
+    You might have been surprised at the output from the last part of the last exercise. How did you get two lines from one string, and how did you get that little smiley face? The key is the \.
+
+    A sequence in a string that starts with a \ is called an escape sequence and allows us to include special characters in our strings. You saw one escape sequence in the first exercise: \" is used to denote a double quote.
+
+    In "hello\n\U263A" there are two escape sequences: \n gives a newline, and \U followed by up to 8 hex digits sequence denotes a particular Unicode character.
+
+    Unicode is a standard for representing characters that might not be on your keyboard. Each available character has a Unicode code point: a number that uniquely identifies it. These code points are generally written in hex notation, that is, using base 16 and the digits 0-9 and A-F. You can find the code point for a particular character by looking up a code chart. If you only need four digits for the codepoint, an alternative escape sequence is \u.
+
+    When R comes across a \ it assumes you are starting an escape, so if you actually need a backslash in your string you'll need the sequence \\.
+    
+- Class: text
+  Output: |-
+    Here are som common escape sequences:
+    
+    \\	Backslash (\)
+    
+    \'	Single quote (')
+    
+    \"	Double quote (")
+    
+    \a	ASCII Bell (BEL)
+    
+    \b	ASCII Backspace (BS)
+    
+    \f	ASCII Formfeed (FF)
+    
+    \n	ASCII Linefeed (LF)
+    
+    \r	ASCII Carriage Return (CR)
+    
+    \t	ASCII Horizontal Tab (TAB)
+    
+    \v	ASCII Vertical Tab (VT)
+    
+    \ooo	ASCII character with octal value ooo
+    
+    \xhh...	ASCII character with hex value hh...
+    
+    \uhh... Unicode character with hex code hh...
+
+
+- Class: cmd_question
+  Output: |-
+    Edit the string inside writeLines() so that it correctly displays (all on one line) the line of text below:
+
+    To have a \ you need \\
+  AnswerTests: omnitest(correctExpr='writeLines("To have a \\\\ you need \\\\\\\\")')
+  Hint: Escape the escapes!
+
+- Class: cmd_question
+  Output: |-
+    Edit the string inside writeLines() so that it correctly displays (with the line breaks in these positions, NOTE: though it may look like two, each gap is ONE line break)
+    
+    This is a really
+    
+    really really
+    
+    long string
+  AnswerTests: omnitest(correctExpr='writeLines("This is a really\nreally really\nlong string")')
+  Hint: Insert linefeeds where needed.
+
+- Class: cmd_question
+  Output: Try writeLines() with the string containing unicode characters "\u0928\u092e\u0938\u094d\u0924\u0947 \u0926\u0941\u0928\u093f\u092f\u093e".
+  CorrectAnswer: writeLines("\u0928\u092e\u0938\u094d\u0924\u0947 \u0926\u0941\u0928\u093f\u092f\u093e")
+  AnswerTests: omnitest(correctExpr='writeLines("\u0928\u092e\u0938\u094d\u0924\u0947 \u0926\u0941\u0928\u093f\u092f\u093e")')
+  Hint: Use writeLines() with "\u0928\u092e\u0938\u094d\u0924\u0947 \u0926\u0941\u0928\u093f\u092f\u093e"
+  
+- Class: text
+  Output: |-
+    The behavior of format() can be pretty confusing, so we'll spend a bit of time exploring how it works.
+
+    The scientific argument to format() controls whether the numbers are displayed in fixed (scientific = FALSE) or scientific (scientific = TRUE) format.
+
+    When the representation is scientific, the digits argument is the number of digits before the exponent. When the representation is fixed, digits controls the significant digits used for the smallest (in magnitude) number. Each other number will be formatted to match the number of decimal places in the smallest number. This means the number of decimal places you get in your output depends on all the values you are formatting!
+
+    For example, if the smallest number is 0.0011, and digits = 1, then 0.0011 requires 3 places after the decimal to represent it to 1 significant digit, 0.001. Every other number will be formatted to 3 places after the decimal point.
+
+    So, how many decimal places will you get if 1.0011 is the smallest number? Let's find out!
+
+- Class: cmd_question
+  Output: Format c(0.0011, 0.011, 1) with digits = 1. This is like the example described above.
+  CorrectAnswer: format(c(0.0011, 0.011, 1),digits = 1)
+  AnswerTests: omnitest(correctExpr='format(c(0.0011, 0.011, 1),digits = 1)')
+  Hint: 
+
+- Class: cmd_question
+  Output: Now, format c(1.0011, 2.011, 1) with digits = 1. Try to predict what you might get before you try it.
+  CorrectAnswer: format(c(1.0011, 2.011, 1),digits = 1)
+  AnswerTests: omnitest(correctExpr='format(c(1.0011, 2.011, 1),digits = 1)')
+  Hint: 
+
+- Class: cmd_question
+  Output: Take a look at the vector percent_change.
+  CorrectAnswer: percent_change
+  AnswerTests: omnitest(correctExpr='percent_change')
+  Hint: type percent_change and press enter.
+
+- Class: cmd_question
+  Output: Format percent_change by choosing the digits argument so that the values are presented with one place after the decimal point.
+  CorrectAnswer: format(percent_change, digits = 2)
+  AnswerTests: omnitest(correctExpr='format(percent_change, digits = 2)')
+  Hint: 
+
+- Class: cmd_question
+  Output: Format income by choosing the digits argument so that the values are presented as whole numbers (i.e. no places after the decimal point).
+  CorrectAnswer: format(income, digits = 2)
+  AnswerTests: omnitest(correctExpr='format(income, digits = 2)')
+  Hint: 
+
+- Class: cmd_question
+  Output: Format p_values using a fixed representation.
+  CorrectAnswer: format(p_values, scientific = FALSE)
+  AnswerTests: omnitest(correctExpr='format(p_values, scientific = FALSE)')
+  Hint: 
+
+- Class: text
+  Output: |-
+    Not only does format() control the way the number is represented it also controls some of the properties of the resulting string that affect its display.
+
+    For example, by default format() will pad the start of the strings with spaces so that the decimal points line up, which is really useful if you are presenting the numbers in a vertical column. However, if you are putting the number in the middle of a sentence, you might not want these extra spaces. You can set trim = TRUE to remove them.
+
+    When numbers are long it can be helpful to "prettify" them, for example instead of 1000000000 display 1,000,000,000. In this case a , is added every 3 digits. This can be controlled by the big.interval and big.mark arguments, e.g. format(1000000000, big.mark = ",", big.interval = 3, scientific = FALSE). These arguments are actually passed on to prettyNum() so head there for any further details.
+
+- Class: cmd_question
+  Output: Create a new object formatted_income by formatting the income object with digits = 2.
+  CorrectAnswer: formatted_income <- format(income, digits = 2)
+  AnswerTests: omnitest(correctExpr='formatted_income <- format(income, digits = 2)')
+  Hint: formatted_income <- format(income, digits = 2)
+
+- Class: cmd_question
+  Output: Print formatted_income with the print function. Notice the spaces at the start of the strings.
+  CorrectAnswer: print(formatted_income)
+  AnswerTests: omnitest(correctExpr='print(formatted_income)')
+  Hint: print(formatted_income)
+
+- Class: cmd_question
+  Output: Call writeLines() on the formatted income. Notice how the numbers line up on the decimal point.
+  CorrectAnswer: writeLines(formatted_income)
+  AnswerTests: omnitest(correctExpr='writeLines(formatted_income)')
+  Hint: writeLines(formatted_income)
+
+- Class: cmd_question
+  Output: Define trimmed_income by using format() on income with digits = 2 and trim = TRUE.
+  CorrectAnswer: trimmed_income <- format(income, digits = 2, trim = TRUE)
+  AnswerTests: omnitest(correctExpr='trimmed_income <- format(income, digits = 2, trim = TRUE)')
+  Hint: trimmed_income <- format(income, digits = 2, trim = TRUE)
+
+- Class: cmd_question
+  Output: Call writeLines() on trimmed_income. Notice how this removes the spaces at the start of the strings and the values line up on left.
+  CorrectAnswer: writeLines(trimmed_income)
+  AnswerTests: omnitest(correctExpr='writeLines(trimmed_income)')
+  Hint: writeLines(trimmed_income)
+
+- Class: cmd_question
+  Output: Define pretty_income by using format() on income with digits = 2 and big.mark = ",".
+  CorrectAnswer: pretty_income <- format(income, digits = 2, big.mark = ",")
+  AnswerTests: omnitest(correctExpr='pretty_income <- format(income, digits = 2, big.mark = ",")')
+  Hint: pretty_income <- format(income, digits = 2, big.mark = ",")
+
+- Class: cmd_question
+  Output: Call writeLines() on pretty_income.
+  CorrectAnswer: writeLines(pretty_income)
+  AnswerTests: omnitest(correctExpr='writeLines(pretty_income)')
+  Hint: writeLines(pretty_income)
+
+- Class: text
+  Output: |-
+    The function formatC() provides an alternative way to format numbers based on C style syntax.
+
+    Rather than a scientific argument, formatC() has a format argument that takes a code representing the required format. The most useful are:
+
+    "f" for fixed,
+
+    "e" for scientific, and
+    
+    "g" for fixed unless scientific saves space
+
+    When using scientific format, the digits argument behaves like it does in format(); it specifies the number of significant digits. However, unlike format(), when using fixed format, digits is the number of digits after the decimal point. This is more predictable than format(), because the number of places after the decimal is fixed regardless of the values being formatted.
+
+    formatC() also formats numbers individually, which means you always get the same output regardless of other numbers in the vector.
+
+    The flag argument allows you to provide some modifiers that, for example, force the display of the sign (flag = "+"), left align numbers (flag = "-") and pad numbers with leading zeros (flag = "0"). You'll see an example in this exercise.
+
+
+- Class: cmd_question
+  Output: Format percent_change to one decimal place after the decimal point.
+  CorrectAnswer: format(percent_change, digits = 2)
+  AnswerTests: omnitest(correctExpr='format(percent_change, digits = 2)')
+  Hint: How many digits do we need?
+
+- Class: cmd_question
+  Output: Using formatC, format percent_change to one decimal place after the decimal point and add flag = "+" and store the result in a new variable pretty_percent. This forces the display of the sign.
+  CorrectAnswer: pretty_percent <- formatC(percent_change, format = "f", digits = 1, flag = "+")
+  AnswerTests: omnitest(correctExpr='pretty_percent <- formatC(percent_change, format = "f", digits = 1, flag = "+")')
+  Hint: How many digits should we tell formatC to use in this case?
+
+- Class: text
+  Output: |-
+    To get a handle on using paste(), you are going to annotate some of your formatted number strings.
+
+    The key points to remember are:
+
+    The vectors you pass to paste() are pasted together element by element, using the sep argument to combine them.
+    
+    If the vectors passed to paste() aren't the same length, the shorter vectors are recycled up to the length of the longest one.
+
+    Only use collapse if you want a single string as output. collapse specifies the string to place between different elements.
+
+
+- Class: cmd_question
+  Output: Paste a $ to the front of each value in pretty_income, use sep = "", so there is no space between the $ and value.
+  CorrectAnswer: paste("$", pretty_income, sep = "")
+  AnswerTests: omnitest(correctExpr='paste("$", pretty_income, sep = "")')
+  Hint: paste("$", pretty_income, sep = "")
+
+- Class: cmd_question
+  Output: Paste a % to the end of each value in pretty_percent, use sep = "", so there is no space between the value and the %.
+  CorrectAnswer: paste(pretty_percent, "%", sep = "")
+  AnswerTests: omnitest(correctExpr='paste(pretty_percent, "%", sep = "")')
+  Hint: paste(pretty_percent, "%", sep = "")
+
+- Class: cmd_question
+  Output: |-
+    Create vector with elements which look like this
+    
+    2010: +4.0%, 2011: -1.9%, 2012: +3.0%, 2013: -5.0%
+    
+    and save it as year_percent.
+  AnswerTests: |-
+    any_of_exprs('year_percent <- paste(2010:2013, paste(pretty_percent, "%", sep = ""), sep = ": ")','year_percent <- paste(2010:2013, ": ", paste(pretty_percent, "%", sep = ""), sep = "")','year_percent <- paste(2010:2013, ": ", pretty_percent, "%", sep = "")')
+  Hint: You'll need two vectors, 2010:2013 and pretty_percent, then you'll need to add the % sign and join them together with a colon.
+
+- Class: cmd_question
+  Output: Call writeLines on year_percent
+  CorrectAnswer: writeLines(year_percent)
+  AnswerTests: omnitest(correctExpr='writeLines(year_percent)')
+  Hint: writeLines(year_percent)
+
+- Class: cmd_question
+  Output: |-
+    Use paste() with year_percent to create single string that collapses all the years: 2010: +4.0%, 2011: -1.9%, 2012: +3.0%, 2013: -5.0%.
+  CorrectAnswer: paste(year_percent, collapse = ", ")
+  AnswerTests: omnitest(correctExpr='paste(year_percent, collapse = ", ")')
+  Hint: Add a collapse argument in paste.
+#- Class: mult_question
+#  Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
+#  AnswerChoices: Yes;No
+#  CorrectAnswer: NULL
+#  AnswerTests: submit_log()
+#  Hint: hint
+

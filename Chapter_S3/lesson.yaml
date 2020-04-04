@@ -1,0 +1,830 @@
+- Class: meta
+  Course: Stats 20
+  Lesson: Chapter S3 - Regular Expressions
+  Author: Jake Elmstedt
+  Type: Standard
+  Organization: UCLA
+  Version: 1.0.0
+
+
+- Class: text
+  Output: Now that we’ve covered the basics of string manipulation in R, 
+    let’s discuss the more advanced topic of regular expressions. A regular 
+    expression is a string that defines a pattern that could be contained 
+    within another string. A regular expression can be used for searching for 
+    a string, searching within a string, or replacing one part of a string with 
+    another string. In this lesson I might refer to a regular expression as 
+    a regex, just know that they’re the same thing.
+
+- Class: text
+  Output: Regular expressions use characters to define patterns of other 
+    characters. Although that approach may seem problematic at first, 
+    we’ll discuss meta-characters (characters that describe other characters) 
+    and how you can use them to create powerful regular expressions.
+    
+- Class: text
+  Output: |-
+    When dealing with strings, things are rarely cut and dry. Matching isn't always going to be perfect or easy, so you'll need a way to describe what you want to do.
+    
+    We'll learn some basics then work through a real world example.
+
+- Class: cmd_question
+  Output: |-
+    You have in your environment the poem Cut by Sylvia Plath, it is stored as the object plath.
+    
+    We will use this poem to learn how to use regular expressions.
+
+    call writeLines(plath) to view the poem in it's entirety.
+  CorrectAnswer: writeLines(plath)
+  AnswerTests: omnitest(correctExpr='writeLines(plath)')
+  Hint: writeLines(plath)
+
+- Class: cmd_question
+  Output: |-
+    Let's also move the poem into the source editor pane so you may reference it throughout this lesson. Type:
+    
+    View(plath)
+    
+    NOTE: The View function is capitalized. It is one of a very small number of base functions which do not begin with a lower-case letter. Don't fret if the first few hundred times you try to call View you do so with a lower-case v, I still do it constantly.
+  CorrectAnswer: View(plath)
+  AnswerTests: omnitest(correctExpr='View(plath)')
+  Hint: View(plath)
+
+- Class: text
+  Output: |-
+    Regarding regular expressions, there are a few things you need to know. Broadly, the concepts we will cover with regards to regular expressions (regex for short) are:
+    
+    Anchors
+    
+    Quantifiers
+    
+    Logical Operators (specifically OR)
+    
+    Character Classes
+    
+    Flags
+    
+    Grouping
+    
+    Bracketed Expressions
+    
+    Boundaries
+
+- Class: cmd_question
+  Output: |-
+    The base R functions which use regex are all part of the grep family of functions.
+    
+    It is recommended you take a couple of minutes to skim through the help file for grep now.
+  CorrectAnswer: ?grep
+  AnswerTests: any_of_exprs('?grep', 'help(grep)')
+  Hint: ?grep
+
+- Class: text_question
+  Output: In the Description and Usage sections of the grep help file, they list all of the functions in the grep family. Type the names of the grep family of functions in the order they appear in the Usage below. Separate each with a single space on one line then press enter.
+  CorrectAnswer: 'grep grepl sub gsub regexpr gregexpr regexec'
+  AnswerTests: omnitest(correctVal='grep grepl sub gsub regexpr gregexpr regexec')  
+  Hint: |-
+    This should be of the form:
+    
+    fun1 fun2 fun3 fun4 fun5 fun6 fun7
+    
+    Do not include parentheses!
+    
+- Class: cmd_question
+  Output: |-
+    For additional help on regular expressions in R, you can see the help file on regex.
+    
+    Pull up this help file now.
+  CorrectAnswer: ?regex
+  AnswerTests: any_of_exprs('?regex', 'help(regex)')
+  Hint: ?regex
+
+- Class: text_question
+  Output: |-
+    If more than one option comes up, chooe the one which corresponds to Base R.
+    
+    The regex help file description mentions a function not listed in the grep help file, what is the name of that function?
+  CorrectAnswer: 'strsplit'
+  AnswerTests: omnitest(correctVal='strsplit')
+  Hint: |-
+    Last word of the first sentence.
+
+- Class: text
+  Output: One of the most basic functions in R that uses regular expressions 
+    is the grepl() function, which takes two arguments - a regular expression 
+    and a string to be searched. If the string contains the specified regular 
+    expression then grepl() will return TRUE, otherwise it will return FALSE.
+
+- Class: cmd_question
+  Output: Let’s contruct an example using grepl() with a string and a regex.
+    First assign the regex "a" to a variable called regular_expression.
+  CorrectAnswer: regular_expression <- "a"
+  AnswerTests: omnitest(correctExpr='regular_expression <- "a"')
+  Hint: Just type regular_expression <- "a"
+
+- Class: cmd_question
+  Output: Next assign the string "Maryland" to a variable called 
+    string_to_search.
+  CorrectAnswer: string_to_search <- "Maryland"
+  AnswerTests: omnitest(correctExpr='string_to_search <- "Maryland"',)
+  Hint: Just type string_to_search <- "Maryland"
+
+- Class: cmd_question
+  Output: Now use grepl() to see whether regular_expression is present in
+    string_to_search.
+  CorrectAnswer: grepl(regular_expression, string_to_search)
+  AnswerTests: omnitest(correctExpr='grepl(regular_expression, string_to_search)')
+  Hint: Just type grepl(regular_expression, string_to_search)
+
+- Class: video
+  Output: |-
+    There are many online utilities which help with learning and bulding regular expressions. One of my favorites is:
+    
+    regex101.com
+    
+    Say yes below to be taken there with an example already loaded.
+    
+    You can use this site to quickly and easily test out your regular expressions.
+    
+    NOTE: You don't need to escape the \ on this site, but you WILL need to in R. Something to rememeber.
+  VideoLink: https://regex101.com/r/V54mS8/1
+
+- Class: figure
+  Output: I'm opening up a table of metacharacters that I'll be referring to
+    for the rest of the lesson.
+  Figure: metatbl.R
+  FigureType: new
+  
+- Class: cmd_question
+  Output: |-
+    grep() and grepl() will identify for you which elements of a character vector match the regular expression you set in the pattern argument.
+    
+    grep() will return a numeric index while grepl() will return a logical index.
+    
+    try grep(pattern = "thumb", x = plath) to see how this works.
+  CorrectAnswer: grep(pattern = "thumb", x = plath)
+  AnswerTests: omnitest(correctExpr='grep(pattern = "thumb", x = plath)')
+  Hint: grep(pattern = "thumb", x = plath)
+
+- Class: cmd_question
+  Output: |-
+    You can see the word "thumb" (case-sensitive, of course) only appears in the second element of the vector.
+    
+    Try grepl(pattern = "thumb", x = plath) now to see the difference.
+  CorrectAnswer: grepl(pattern = "thumb", x = plath)
+  AnswerTests: omnitest(correctExpr='grepl(pattern = "thumb", x = plath)')
+  Hint: grepl(pattern = "thumb", x = plath)
+
+################################################################################
+################################################################################
+####################                ANCHORS                 ####################
+################################################################################
+################################################################################
+
+- Class: text
+  Output: |-
+    Same result, different representation.
+    
+    Now, we can start talking about anchors. The characters for anchors are:
+    
+    ^ which matches the beginning of a string, and
+    
+    $ which matches the end of a string.
+
+- Class: cmd_question
+  Output: Let's test these operators out. Enter grepl("^a", c("bab", "aab"))
+    into the R console in order to see if either string begins with "a"
+  CorrectAnswer: grepl("^a", c("bab", "aab"))
+  AnswerTests: omnitest(correctExpr='grepl("^a", c("bab", "aab"))')
+  Hint: Just type grepl("^a", c("bab", "aab"))
+
+- Class: cmd_question
+  Output: Now use grepl() to see if the two strings from the last question end
+    with the letter "b"
+  CorrectAnswer: grepl("b$", c("bab", "aab"))
+  AnswerTests: any_of_exprs('grepl("b$", c("bab", "aab"))', 'grepl("b$", c("aab", "bab"))')
+  Hint: Take a look at the answer to the last question, and remember to use the
+    "$" metacharacter which represents the end of a string!
+
+- Class: mult_question
+  Output: |-
+    What do you think the result of 
+    
+    grep(pattern = "^thumb", x = plath)
+    
+    will be? Be sure to reference the view of the poem in the source editor.
+  AnswerChoices: 2 becuase it will match with "thumb" in the middle of line 2.;49 because it will match with "Thumb" at the beginning of line 49.; A vector containing 2 and 49 because it will match with both.;integer(0) because grep() will find no matches.
+  CorrectAnswer: integer(0) because grep() will find no matches.
+  AnswerTests: omnitest(correctVal='integer(0) because grep() will find no matches.')
+  Hint: Remember, the pattern matching is case-sensitive AND we are trying to match the beginning of the string.
+
+- Class: cmd_question
+  Output: Run grep(pattern = "^thumb", x = plath) to verify the result.
+  CorrectAnswer: grep(pattern = "^thumb", x = plath)
+  AnswerTests: omnitest(correctExpr='grep(pattern = "^thumb", x = plath)')
+  Hint: grep(pattern = "^thumb", x = plath)
+
+- Class: cmd_question
+  Output: Now, the pattern "ill" occurs several times in the poem Cut, find where using grep().
+  CorrectAnswer: grep(pattern = "ill", x = plath)
+  AnswerTests: omnitest(correctExpr='grep(pattern = "ill", x = plath)')
+  Hint: grep(pattern = "ill", x = plath)
+
+- Class: cmd_question
+  Output: But what if we wanted to know just which lines ENDED with "ill", that is they cointain "ill" followd by the end of line? use grep and the appropriate pattern to get the answer.
+  CorrectAnswer: grep(pattern = "ill$", plath)
+  AnswerTests: any_of_exprs('grep(pattern = "ill$", plath)', 'grep(pattern = "ill$", x = plath)','grep("ill$", plath)')
+  Hint: grep(pattern = "ill$", x = plath)
+
+- Class: text
+  Output: |-
+    You can see we only match line 29 while line 28 goes unmatched because between the letters "ill" and the end of the line "$" there is a period "."
+
+################################################################################
+################################################################################
+####################            QUANTIFIERS                 ####################
+################################################################################
+################################################################################
+
+- Class: text
+  Output: |-
+    Next up is the idea of QUANTIFIERS.
+    
+    We'll press pause on our poetry analysis for a moment the following vector will be more useful interms of exploring this idea. You have a vector in your environment called always. It has the following elements:
+    
+    aways always allways alllways allllways alllllways
+    
+    You might imagine a particularly expressive person might have all of these words appear in the text logs on their phone.
+    
+- Class: text
+  Output: |-
+    There are three BASIC quantifier notations and one which is more GENERAL:
+    
+    *, +, ?, and {}
+    
+    We will use the following convention to identify pieces of the regular expression:
+    
+    b is the string piece BEFORE the quantified character,
+    
+    q is the quantified character,
+    
+    Q is the quantifying expression,
+    
+    a is the string piece AFTER the quantified character.
+    
+    So our regex will look something like this bqQa.
+    
+- Class: text
+  Output: |-
+    In the context of this lesson component,
+    
+    a will be our b, the string before the quantified character,
+    
+    l will be our quantified character q,
+    
+    w will be our a, the string AFTER the quantified character.
+    
+    Q, our quantifying expression will be the only thing we change.
+    
+- Class: text
+  Output: |-
+    aways always allways alllways allllways alllllways
+
+    The * quantifier quantifies the character which IMMEDIATELY precedes it.
+    
+    * matches the string BEFORE the quantified character followed by ZERO or MORE of the quantified character
+    
+    al*w matches: aways always allways alllways allllways alllllways
+
+    + matches the string BEFORE the quantified character followed by ONE or MORE of the quantified character
+    
+    al+w matches: always allways alllways allllways alllllways. BUT NOT aways
+    
+    ? matches the string BEFORE the quantified character followed by ZERO or ONE of the quantified character
+    
+    al?w matches: aways always BUT NOT allways alllways allllways alllllways
+    
+- Class: text
+  Output: |-
+    aways always allways alllways allllways alllllways
+    
+    The GENERAL quantifier is: {} and it takes either ONE or TWO arguments.
+    
+    {n} matches the string BEFORE the quantified character followed by EXACTLY n copies of the quantified character.
+
+    al{2}w matches: allways BUT NOT aways always alllways allllways alllllways
+    
+    {n, m} matches the string BEFORE the quantified character followed by BETWEEN n and m copies of the quantified character.
+
+    al{1, 3}w matches: always allways alllways BUT NOT aways allllways alllllways
+    
+- Class: text
+  Output: |-
+    aways always allways alllways allllways alllllways
+    
+    The GENERAL quantifier is even more general though, you can leave the second argument empty...
+    
+    {n, } matches the string BEFORE the quantified character followed by n OR MORE copies of the quantified character.
+
+    al{2, }w matches: allways alllways allllways alllllways BUT NOT aways always
+    
+    { , m} has VERY STRANGE behavior and should be avoided unless you have COMPLETE understanding of why it behaves as it does.
+
+
+- Class: mult_question
+  Output: |-
+    Which basic quantifier is replicated by the more complex quantifier below?
+
+    al{0,}w
+  AnswerChoices: |-
+    +;-;*;/;?;!
+  CorrectAnswer: |-
+    *
+  AnswerTests: omnitest(correctVal='*')
+  Hint: |-
+    What is the minimum number of l's you need to match?
+    
+    What is the maximum number of l's you can match?
+
+- Class: mult_question
+  Output: |-
+    Which basic quantifier is replicated by the more complex quantifier below?
+
+    al{1,}w
+  AnswerChoices: |-
+    +;-;*;/;?;!
+  CorrectAnswer: +
+  AnswerTests: omnitest(correctVal='+')
+  Hint: |-
+    What is the minimum number of l's you need to match?
+    
+    What is the maximum number of l's you can match?
+
+- Class: mult_question
+  Output: |-
+    Which basic quantifier is replicated by the more complex quantifier below?
+
+    al{0,1}w
+  AnswerChoices: |
+    +;-;*;/;?;!
+  CorrectAnswer: |-
+    ?
+  AnswerTests: omnitest(correctVal='?')
+  Hint: |-
+    What is the minimum number of l's you need to match?
+    
+    What is the maximum number of l's you can match?
+
+################################################################################
+################################################################################
+####################              GROUPING                  ####################
+################################################################################
+################################################################################
+
+- Class: text
+  Output: |-
+    Now, if our texting companion is even MORE expressive, we might see things like:
+    
+    aways alLways alLlLways alLlLlLways alLlLlLlLways
+    
+    in their message log.
+    
+    Thankfully, we have a way of dealing with this.
+
+- Class: text
+  Output: |-
+    aways alLways alLlLways alLlLlLways alLlLlLlLways
+    
+    To apply a quantifier to multiple characters, we can wrap them in a set of parentheses.
+    
+    So our pattern looks something like:
+    
+    b(q)Qa
+
+- Class: text
+  Output: |-
+    aways alLways alLlLways alLlLlLways alLlLlLlLways
+    
+    a(lL)+w matches alLways alLlLways alLlLlLways alLlLlLlLways BUT NOT aways
+    
+    a(lL)?w matches aways alLways BUT NOT alLlLways alLlLlLways alLlLlLlLways
+    
+    a(lL){1,2}w matches alLways alLlLways BUT NOT aways alLlLlLways alLlLlLlLways
+    
+    etc.
+
+- Class: cmd_question
+  Output: Now that that is done, use the grep function and an appropriate regex to find the lines in Cut which contain the character i followed by one or more copies of the character l.
+  CorrectAnswer: grep(pattern = "il+", x = plath)
+  AnswerTests: results_identical(correctExpr='grep(pattern = "il+", x = plath)')
+  Hint: grep(pattern = "il+", x = plath)
+
+
+################################################################################
+################################################################################
+####################              LOGICAL OR                ####################
+################################################################################
+################################################################################
+
+- Class: text
+  Output: |-
+    Next, we can talk about the logical OR operator.
+    
+    There are two types of syntax for the or operator:
+    
+    | the binary operator, this matches the string present to the left OR the string on the right.
+    
+    Say you wanted to find the lines in Cut which contain either "at" or "it" somewhere in the string. Your pattern could be:
+    
+    at|it which would be read as "at or it."
+    
+    An often better and more sophisticated pattern would group the conditional and not repeat the "t", so your pattern could be:
+    
+    (a|i)t which would be read as "a or i followed by a t."
+    
+    The second pattern will generally be preferred.
+
+- Class: text
+  Output: |-
+    The other syntax for a logical or in a regex is the bracket notation:
+    
+    [] this will match any character string inside the brackets.
+    
+    So to match the same previous pattern, we would make our pattern:
+    
+    [ai]t
+
+- Class: text_question
+  Output: |-
+    Which OR syntax you use will be largely up to you, both have their merits and are effectively interchangeable, but the bracket notation can make some things much more readable when dealing with multiple compound OR statements.
+    
+    Say you wanted to match any example of two, adjacent, vowels?
+    
+    Using the | OR, you would need to do something like:
+    
+    pattern = "(a|e|i|o|u)(a|e|i|o|u)" or pattern = "(a|e|i|o|u){2}"
+    
+    Where the (better) pattern is:
+    
+    (a|e|i|o|u){2}
+    
+    Type what the pattern would be using the bracket notation below:
+  CorrectAnswer: 
+  AnswerTests: omnitest(correctVal='[aeiou]{2}')
+  Hint: |-
+    Your answer should not include the word pattern or any quotes. It should only be brackets and whatever you think should go inside of them along with any possible quantifiers.
+
+- Class: text
+  Output: |-
+    Next up on our journey we have the functions sub and gsub.
+    
+    They both will substitute one bit of text for another, but gsub will do it for all instances found whereas sub will only perform the substitution on the FIRST match it finds in each string.
+
+- Class: text
+  Output: |-
+    You can see the differences between sub and gsub here:
+    
+    > gsub(pattern = "l", replacement = "m", x = always)
+    
+    [1] "aways"      "amways"     "ammways"    "ammmways"   "ammmmways"  "ammmmmways"
+    
+    > sub(pattern = "l", replacement = "m", x = always)
+    
+    [1] "aways"      "amways"     "amlways"    "amllways"   "amlllways"  "amllllways"
+
+- Class: text
+  Output: |-
+    Unless your text has a VERY specific structure and you know you only want to effect the FIRST occurance of a found string pattern, you should strive to ensure your pattern identifies exactly those you want to match and not rely on matching the first occurance with sub.
+    
+    As such, I will only be demonstrating the use of gsub.
+
+- Class: cmd_question
+  Output: |-
+    Let's have a bit of fun at Ms Plath's expense.
+    
+    Use gsub to replace all the pairs of adjacent vowels with two o's and store it in an object named plooth.
+  CorrectAnswer: plooth <- gsub(pattern = "[aeiou]{2}", replacement = "oo", x = plath)
+  AnswerTests: any_of_exprs('plooth <- gsub(pattern = "[aeiou][aeiou]", replacement = "oo", x = plath)','plooth <- gsub(pattern = "(a|e|i|o|u)(a|e|i|o|u)", replacement = "oo", x = plath)','plooth <- gsub(pattern = "(a|e|i|o|u){2}", replacement = "oo", x = plath)','plooth <- gsub(pattern = "[aeiou]{2}", replacement = "oo", x = plath)')
+  Hint: |-
+    Make sure your arguments are in the standard order and your vowels are in alphabetical order.
+    
+    While neither matter from a functional perspective, both make your code a bit easier to read, and so should be considered best practices.
+
+- Class: cmd_question
+  Output: |-
+    Now call View(plooth) and take a look at what our tomfoolery hath wrought...
+    
+    Bonus points if you read it aloud. (Not really but it might be fun to do...)
+  CorrectAnswer: View(plooth)
+  AnswerTests: omnitest(correctExpr='View(plooth)')
+  Hint: View(plooth)
+  
+################################################################################
+################################################################################
+####################           CHARACTER CLASSES           ####################
+################################################################################
+################################################################################
+
+- Class: text
+  Output: You can specify sets of characters with regular expressions, some of
+    which come built in, but you can build your own character sets too. It will
+    be a good idea to reference the metacharacter table I brought up before.
+    
+- Class: text
+  Output: First we'll discuss the built in character sets words ("\\w"), 
+    digits ("\\d"), and whitespace characters ("\\s"). Words specify any letter,
+    digit, or a underscore, digits specify the digits 0 through 9, and 
+    whitespace specifies line breaks, tabs, or spaces. Each of these character 
+    sets have their own complements - not words ("\\W"), not digits ("\\D"), and
+    not whitespace characters ("\\S"). Each specifies all of the characters not
+    included in their corresponding character sets.
+
+- Class: cmd_question
+  Output: Let's try out a few of these character sets. Type grepl("\\d", "0123456789")
+    into the R console to see if the string "0123456789" contains a digit.
+  CorrectAnswer: grepl("\\d", "0123456789")
+  AnswerTests: omnitest(correctExpr='grepl("\x5c\x5cd", "0123456789")')
+  Hint: Just type grepl("\\d", "0123456789")
+
+- Class: cmd_question
+  Output: Now let's try using the complement of the "\\d" set. Enter
+    grepl("\\D", "0123456789") into the R console to see if there are any
+    non-digits in the string "0123456789"
+  CorrectAnswer: grepl("\\D", "0123456789")
+  AnswerTests: omnitest(correctExpr='grepl("\x5c\x5cD", "0123456789")')
+  Hint: Just type grepl("\\D", "0123456789")
+
+- Class: mult_question
+  Output: Which of the following evaluates to FALSE?
+  AnswerChoices: grepl("\\s", "abcdefghijklmnopqrstuvwxyz0123456789");grepl("\\w", "abcdefghijklmnopqrstuvwxyz0123456789");grepl("\\d", "abcdefghijklmnopqrstuvwxyz0123456789")
+  CorrectAnswer: grepl("\\s", "abcdefghijklmnopqrstuvwxyz0123456789")
+  AnswerTests: omnitest(correctVal= 'grepl("\x5c\x5cs", "abcdefghijklmnopqrstuvwxyz0123456789")')
+  Hint: Make sure to reference your table of metacharacters!
+
+- Class: cmd_question
+  Output: |-
+    The next component of regex we are going to cover is CHARACTER CLASSES.
+
+    This is one of the most important and powerful ideas in regex, because it allows to to identify whole swaths of characters without needing to explicitly identify them.
+    
+    I made a file for you showing the hierarchy of the character classes some of these overlap or are identical to other representations, e.g. \d.
+    
+    Type: file.show("chrcls") to view it.
+  CorrectAnswer: file.show("chrcls")
+  AnswerTests: omnitest(correctExpr='file.show("chrcls")')
+  Hint: file.show("chrcls")
+
+- Class: cmd_question
+  Output: |-
+    Since these are families of characters, you'll need to wrap them in brackets to invoke an OR match, that is it will match ANY of the elements in the class.
+    
+    Try this with gsub to replace all of the punctuation in Cut with empty strings and save it as an object called plath_nopunct.
+  CorrectAnswer: plath_nopunct <- gsub(pattern = "[[:punct:]]", replacement = "", x = plath)
+  AnswerTests: omnitest(correctExpr='plath_nopunct <- gsub(pattern = "[[:punct:]]", replacement = "", x = plath)')
+  Hint: plath_nopunct <- gsub(pattern = "[[:punct:]]", replacement = "", x = plath)
+
+- Class: cmd_question
+  Output: Take a look at plath_nopunct now.
+  CorrectAnswer: plath_nopunct
+  AnswerTests: any_of_exprs('plath_nopunct','print(plath_nopunct)')
+  Hint: print(plath_nopunct)
+
+- Class: mult_question
+  Output: There are a couple of lines now with white-space characters at the end of the line. Which command would remove them if we needed to?
+  AnswerChoices: gsub(pattern = "[[:space:]]$", replacement = "", x = plath_nopunct);gsub(pattern = "[[:space:]]", replacement = "", x = plath_nopunct);gsub(pattern = "[[:space:]$]", replacement = "", x = plath_nopunct)
+  CorrectAnswer: gsub(pattern = "[[:space:]]$", replacement = "", x = plath_nopunct)
+  AnswerTests: omnitest(correctVal='gsub(pattern = "[[:space:]]$", replacement = "", x = plath_nopunct)')
+  Hint: Read each carefully to understand what they are doing.
+
+- Class: cmd_question
+  Output: Go ahead and remove those trailing spaces and save the object using the same name.
+  CorrectAnswer: plath_nopunct <- gsub(pattern = "[[:space:]]$", replacement = "", x = plath_nopunct)
+  AnswerTests: any_of_exprs('plath_nopunct <- gsub(pattern = "[[:space:]]$", replacement = "", x = plath_nopunct)','plath_nopunct2 <- gsub(pattern = " $", replacement = "", x = plath_nopunct)', 'plath_nopunct <- gsub(pattern = "[[:blank:]]$", replacement = "", x = plath_nopunct)')
+  Hint: |-
+    plath_nopunct <- gsub(pattern = "[[:space:]]$", replacement = "", x = plath_nopunct)
+    
+    plath_nopunct <- gsub(pattern = "[[:blank:]]$", replacement = "", x = plath_nopunct)
+    
+    plath_nopunct <- gsub(pattern = " $", replacement = "", x = plath_nopunct) 
+    
+    all work.
+
+- Class: text
+  Output: Finally, there is another meta character I want to call talk about, ".". The metacharacter that only consists of a period represents any character other than a newline (we’ll discuss new lines soon).
+
+- Class: cmd_question
+  Output: Let's try using this metacharacter. Enter grepl(".", "Maryland") into
+    the R console to see if there is one instance of any character present.
+  CorrectAnswer: grepl(".", "Maryland")
+  AnswerTests: omnitest(correctExpr='grepl(".", "Maryland")')
+  Hint: Just type grepl(".", "Maryland")
+
+- Class: cmd_question
+  Output: Let's try one more time using this metacharacter. Enter 
+    grepl(".", "") into the R console.
+  CorrectAnswer: grepl(".", "")
+  AnswerTests: omnitest(correctExpr='grepl(".", "")')
+  Hint: Just type grepl(".", "")
+
+- Class: text
+  Output: There aren't any characters in an empty string. There this expression
+    is evaluated to FALSE.
+
+- Class: cmd_question
+  Output: As you can see, the period metacharacter is very liberal. This 
+    metacharacter is most useful when you don’t care about a set of 
+    characters in a regular expression. Enter 
+    grepl("a.b", c("aaa", "aab", "abb", "acadb")) into the R console to see what
+    happens.
+  CorrectAnswer: grepl("a.b", c("aaa", "aab", "abb", "acadb"))
+  AnswerTests: omnitest(correctExpr='grepl("a.b", c("aaa", "aab", "abb", "acadb"))')
+  Hint: Just type grepl("a.b", c("aaa", "aab", "abb", "acadb"))
+
+- Class: text
+  Output: In the previous case, grepl() returns TRUE for all strings that contain 
+    an "a" followed by any other character followed by a "b".
+
+- Class: cmd_question
+  Output: |-
+    Use the . meta charater along with grep or grepl to find the elements of plath_nopunct which aren't empty.
+    
+    In a single line of code, remove the empty vectors, make everything lowercase in plath_nopunct and save it as an object named cut.
+  CorrectAnswer: cut <- tolower(plath_nopunct[grep(pattern = ".", plath_nopunct)])
+  AnswerTests: any_of_exprs('cut <- tolower(plath_nopunct[grep(pattern = ".", plath_nopunct)])','cut <- tolower(plath_nopunct[grepl(pattern = ".", plath_nopunct)])')
+  Hint: cut <- tolower(plath_nopunct[grep(pattern = ".", plath_nopunct)])
+
+- Class: cmd_question
+  Output: |-
+    Of course, it is possible to do this all in one go starting from the object plath. Run this line to see the same result:
+    
+    tolower(gsub(pattern = "( *)[[:punct:]]", replacement = "", x = plath[grep(pattern = ".", x = plath)]))
+    
+    Ultimately, this is probably better since it doesn't create a bunch of intermediate object you need to keep track of.
+  CorrectAnswer: tolower(gsub(pattern = "( *)[[:punct:]]", replacement = "", x = plath[grep(pattern = ".", x = plath)]))
+  AnswerTests: any_of_exprs('tolower(gsub(pattern = "( *)[[:punct:]]", replacement = "", x = plath[grep(pattern = ".", x = plath)]))', 'tolower(gsub(pattern = "([[:space:]]*)[[:punct:]]", replacement = "", x = plath[grep(pattern = ".", x = plath)]))')
+  Hint: tolower(gsub(pattern = "( *)[[:punct:]]", replacement = "", x = plath[grep(pattern = ".", x = plath)]))
+
+
+- Class: text
+  Output: You can also specify specific character sets using straight brackets 
+    []. For example a character set of just the vowels would look
+    like - "[aeiou]". You can find the complement to a specific character by 
+    putting a caret ^ after the first bracket. For example "[^aeiou]" matches 
+    all characters except the lowercase vowels. You can also specify ranges of 
+    characters using a hyphen - inside of the brackets. For example "[a-m]" 
+    matches all of the lowercase characters between a and m, while "[5-8]" 
+    matches any digit between 5 and 8 inclusive.
+
+- Class: cmd_question
+  Output: Time to take some of the training wheels off! Use grepl() to see if
+    there is a vowel in the string "rhythms"
+  CorrectAnswer: grepl("[aeiou]", "rhythms")
+  AnswerTests: omnitest(correctExpr='grepl("[aeiou]", "rhythms")')
+  Hint: Make sure the vowels in the set are in alphabetical order. This doesn't
+    matter when using regular expressions, but that's the answer that swirl is
+    looking for.
+
+- Class: mult_question
+  Output: Which of the following expressions evaluates to TRUE?
+  AnswerChoices: grepl("[a-mA-M]", "ABC");grepl("[aeiou]", "rhythms");grepl("[a-m]", "ABC")
+  CorrectAnswer: grepl("[a-mA-M]", "ABC")
+  AnswerTests: omnitest(correctVal= 'grepl("[a-mA-M]", "ABC")')
+  Hint: Think about how character sets work!
+
+- Class: text
+  Output: You might be wondering how you can use regular expressions to match 
+    a particular punctuation mark since many punctuation marks are used as 
+    metacharacters! Putting two backslashes before a punctuation mark that is 
+    also a metacharacter indicates that you are looking for the symbol and not 
+    the metacharacter meaning. For example "\\." indicates you are trying to 
+    match a period in a string.
+
+- Class: cmd_question
+  Output: Use grepl() to see whether or not a period exists in the string
+    "http://statistics.ucla.edu/"
+  CorrectAnswer: grepl("\\.", "http://statistics.ucla.edu/")
+  AnswerTests: omnitest(correctExpr='grepl("\x5c\x5c.", "http://statistics.ucla.edu/")')
+  Hint: Just type grepl("\\.", "http://statistics.ucla.edu/")
+
+- Class: mult_question
+  Output: Which of the following expressions evaluates to TRUE?
+  AnswerChoices: grepl("\\+", "tragedy + time = humor");grepl("\\.", "tragedy + time = humor");grepl("\\*", "tragedy + time = humor")
+  CorrectAnswer: grepl("\\+", "tragedy + time = humor")
+  AnswerTests: omnitest(correctVal= 'grepl("\x5c\x5c+", "tragedy + time = humor")')
+  Hint: Remember you're not using metacharacters!
+
+- Class: text
+  Output: |-
+    Generally in regex you can set flags to dictate how matching will behave. These flags do not tend to work well in R, so the grep function can take arguments to mimic the behavior of setting flags in your regex.
+    
+    You can set ignore.case = TRUE inside any member of the grep family of functions to make matching case insensitive.
+    
+    Another important flag deals with multiline matching. You'll have to do some work-arounds to get this to work in R, but here is a stackexchange question which deals with it:
+    
+    https://stackoverflow.com/questions/30144325/regex-multiline-extract-in-r
+    
+    Hopefully by the time you need this, you are well versed enough with your programming to be able to seek out the answer!
+
+- Class: text
+  Output: |-
+    The last aspect of regular expressions we are going to talk about for now will be BOUNDARIES.
+    
+    Boundaries are what happens between what is referred to as a "word character" (typically anything in the [:alnum:] character class and a "non-word character" [:space:] and [:punct:] and similar classes.
+    
+    Boundaries are a special type of anchor, like ^ or $ but they indicate the edge of a word.
+    
+    The boundary character is denoted \b if you are using R's standard regex system (NOTE: when it is in a string pattern OUTSIDE of brackets, you'll need to escape the backslash).
+    
+    If you are using perl-style regex (using the argument perl = TRUE) there are two word boundary ancors:
+    
+    [[:<:]] is the beginning of a word and
+    
+    [[:>:]] is the end of a word.
+
+- Class: cmd_question
+  Output: |-
+    Type: plath[grep(pattern = "ll\\b", x = plath)]
+    
+    to see all the lines in the poem which contain a word ending with two l's.
+  CorrectAnswer: plath[grep(pattern = "ll\\b", x = plath)]
+  AnswerTests: omnitest(correctExpr='plath[grep(pattern = "ll\\\\b", x = plath)]')
+  Hint: plath[grep(pattern = "ll\\b", x = plath)]
+
+- Class: cmd_question
+  Output: |-
+    I want to talk the gregexpr function now along with its sister function regmatches.
+    
+    look at the regmatches help file.
+  CorrectAnswer: ?regmatches
+  AnswerTests: any_of_exprs('?regmatches','help(regmatches)')
+  Hint: ?regmatches
+
+- Class: script
+  Output: |-
+    gregexpr identifies the start and ending position of each disjoint match of your regex pattern.
+    
+    The output of gregexpr (or regexpr) for that matter isn't terribly useful on its own, but when passed as an argument to regmatches, it will let you extract substrings matching what your are looking for with your pattern.
+    
+    Update the above scrpit, following the instructions in the script, then type submit() into the command line below.
+  AnswerTests: test_rst()
+  Hint: |-
+    You need to match a word boundary, followed by a lower-case or upper-case r, s, or t, followed by any number of letters, and finally another word boundary.
+    
+    Remember too, the word boundary character is \b, and
+    
+    to have a \ you need \\
+  Script: rst_words.R
+
+- Class: video
+  Output: |-
+    The last thing you are going to do is use regex to grab a bunch of email addresses from a web page.
+    
+    Look at how the email addresses are formatted. This was done to make it "more difficult" for scripts to scrape email addresses and spam our faculty.
+    
+    You are going to quickly demonstrate how pointless this is.
+    
+    Say yes below to take a look at the faculty directory for the UCLA Stats Department.
+  VideoLink: http://directory.stat.ucla.edu/faculty/all-faculty/
+
+- Class: video
+  Output: |-
+    Here is another regex101 link with the a section of the source code for the Stat Department Faculty page pre-loaded.
+    
+    This is a good playground for testing your regex code quickly, would you like to open it now?
+    
+    NOTE: You don't need to escape the \ on this site, but you WILL need to in R. Something to rememeber.
+  VideoLink: https://regex101.com/r/g0svci/2
+
+- Class: script
+  Output: Edit the script above to pull the email addresses out of the web page.
+  AnswerTests: test_email()
+  Hint: |-
+    You need a word boundary,
+    
+    any number of alphanumeric characters or periods,
+    
+    any number of spaces,
+    
+    The "at" symbol,
+    
+    any number of alphanumeric characters or periods,
+    
+    the letters "edu"
+    
+    and a final word boundary.
+    
+    Remember to escape the word boundary, AND, if you are going to match the period OUTSIDE of a bracket expression it needs to be escaped (with two \'s, e.g. \\.)
+  Script: scrape_emails.R
+
+- Class: cmd_question
+  Output: Let's take a look at our handiwork! Display the contents of faculty_email to the console.
+  CorrectAnswer: faculty_email
+  AnswerTests: any_of_exprs('faculty_email')
+  Hint: Type faculty_email and press enter.
+
+#- Class: mult_question
+#  Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
+#  AnswerChoices: Yes;No
+#  CorrectAnswer: NULL
+#  AnswerTests: submit_log()
+#  Hint: hint

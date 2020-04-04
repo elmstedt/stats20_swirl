@@ -1,0 +1,346 @@
+- Class: meta
+  Course: Stats 20
+  Lesson: Chapter 3 - Logical Expression
+  Author: Jake Elmstedt
+  Type: Standard
+  Organization: UCLA
+  Version: 2.4.4
+
+
+- Class: text
+  Output: |-
+    A logical expression is anything which can be, broadly speaking, understood as being either TRUE or FALSE.
+    
+    In R we are allowed a third option: "I don't know."
+    
+    We call this idea of not-knowingness NA, which technically stands for "Not Available" and is also used to represent missing values in data in R.
+    
+    Logical expressions have a very important role in the world of programming. They allow us to ask questions and make decisions based on the answers. Without them programming as we know it could not exist.
+
+- Class: text
+  Output: |-
+    We can convert logical values to and from the other data types. This can happen though type coercion when performing actions with other types or by explicitly casting values to logical with the as.logical() function.
+
+- Class: cmd_question
+  Output: |-
+    Cast the value 4 to a logical value.
+  CorrectAnswer: "as.logical(4)"
+  AnswerTests: omnitest(correctExpr="as.logical(4)")
+
+- Class: cmd_question
+  Output: |-
+    Great!
+    
+    So, 4 --> TRUE. What about -4? Cast -4 to logical and find out.
+  CorrectAnswer: "as.logical(-4)"
+  AnswerTests: omnitest(correctExpr="as.logical(-4)")
+
+- Class: cmd_question
+  Output: |-
+    In fact, any number value OTHER THAN 0 will become TRUE. What do you suppose 0 will become?
+    
+    Cast 0 to a logical value.
+  CorrectAnswer: "as.logical(0)"
+  AnswerTests: omnitest(correctExpr="as.logical(0)")
+
+- Class: cmd_question
+  Output: |-
+    So, 0 --> FALSE, and all other numbers --> TRUE.  You, hopefully, would presume going the other way FALSE --> 0, but what does TRUE cast to if we want to make it a numeric value?
+    
+    Use as.numeric() to find out what the numeric value of TRUE is.
+  CorrectAnswer: "as.numeric(TRUE)"
+  AnswerTests: omnitest(correctExpr="as.numeric(TRUE)")
+
+- Class: text
+  Output: |-
+    That's right, TRUE --> 1. This is a very useful convention because it lets us use mathematical operations on logical vectors to do some interesting things.
+
+# casting to/from char
+
+#logical comparisons
+- Class: text
+  Output: |-
+    Just as we have operators for doing numerical computations, we also have operators for doing logical computations. The first group of operators we'll discuss are the logical comparisons.
+
+    The logical comparison operators are: <, >, <=, >=, ==, and !=
+    
+    These operators are the highest precedence logical operators.
+    
+- Class: cmd_question
+  Output: |-
+    Enter code below to check if 4 is greater than 3.
+  CorrectAnswer: "4 > 3"
+  AnswerTests: omnitest(correctExpr="4 > 3")
+
+- Class: cmd_question
+  Output: |-
+    It is refreshing to know that is true!
+    
+    Next check if 5 is equal to 0
+  CorrectAnswer: "5 == 0"
+  AnswerTests: omnitest(correctExpr="5 == 0")
+
+- Class: cmd_question
+  Output: |-
+    Any comparison with NA will return NA.
+    
+    Check if NA is not equal to 7
+  CorrectAnswer: "NA != 7"
+  AnswerTests: omnitest(correctExpr="NA != 7")
+
+# negation
+- Class: text
+  Output: |-
+    The exclamations point ! is read as "not" and is used to negate the statement it precedes. ! is below the comparison operators in the order of precedence.
+
+- Class: cmd_question
+  Output: |-
+    Negate TRUE below.
+  CorrectAnswer: "!TRUE"
+  AnswerTests: omnitest(correctExpr="!TRUE")
+
+- Class: cmd_question
+  Output: |-
+    And negate FALSE.
+  CorrectAnswer: "!FALSE"
+  AnswerTests: omnitest(correctExpr="!FALSE")
+
+- Class: cmd_question
+  Output: |-
+    And for completeness, please negate NA.
+  CorrectAnswer: "!NA"
+  AnswerTests: omnitest(correctExpr="!NA")
+  
+- Class: cmd_question
+  Output: |-
+    Now we can start to combine operators.
+    
+    For a sanity check, please check NOT TRUE equals FALSE below.
+  CorrectAnswer: "!TRUE == FALSE"
+  AnswerTests: omnitest(correctExpr="!TRUE == FALSE")
+  
+- Class: cmd_question
+  Output: |-
+    Perfect!
+    
+    Can you imagine if that gave us the wrong answer?
+    
+    Let's try another easy one...
+    
+    Check if NOT TRUE is greater than or equal to FALSE.
+  CorrectAnswer: "!TRUE >= FALSE"
+  AnswerTests: omnitest(correctExpr="!TRUE >= FALSE")
+  
+- Class: cmd_question
+  Output: |
+    Wait... WHAT!?
+    
+    If:     !TRUE == FALSE is TRUE
+    
+    Why is: !TRUE >= FALSE, FALSE?
+    
+    Rewerite the expression with one set of parentheses to show how R interprets: !TRUE >= FALSE.
+  CorrectAnswer: "!(TRUE >= FALSE)"
+  AnswerTests: omnitest(correctExpr="!(TRUE >= FALSE)")
+  Hint: Think about the order of operations.
+# compositions
+- Class: text
+  Output: |-
+    Now, you may be interested in expressing more complicated ideas. We can make compound logical expressions using & (AND) and | (OR). & takes precedence over |, but it is recommended you use parentheses when you have multiple compound statements for clarity.
+    
+    There are also &&, || versions of AND and OR which we will discuss during Chapter 10 - Control Flow.
+
+- Class: cmd_question
+  Output: |-
+    Create an object x with the value 6.
+  CorrectAnswer: "x <- 6"
+  AnswerTests: omnitest(correctExpr="x <- 6")
+
+- Class: cmd_question
+  Output: |-
+    Test if x is greater than 5 AND x is even.
+  CorrectAnswer: "x > 5 & x %% 2 == 0"
+  AnswerTests: omnitest(correctExpr="x > 5 & x %% 2 == 0")
+  Hint: Use modular arithmetic to test if x is 0 mod 2.
+  
+# functions
+- Class: text
+  Output: |-
+    There are several function in R which return logical TRUE or FALSE values. These are collectively known as "predicate functions."
+    
+    Some of the most used are the "is." functions. Which allow you to ask questions like: "Is this object numeric?" or "Is this object logical?"
+    
+    These include is.character(), is.numeric(), is.integer(), is.logical(), is.na(), is.null() and many, MANY others.
+    
+# predicate functions
+
+# is.
+- Class: cmd_question
+  Output: |-
+    Display x below.
+  CorrectAnswer: "x"
+  AnswerTests: omnitest(correctExpr="x")
+
+- Class: mult_question
+  Output: Is x an integer?
+  AnswerChoices: Yes;No
+  CorrectAnswer: No
+  AnswerTests: omnitest(correctVal='No')
+  Hint: Remember x is an object not a value.
+  
+- Class: cmd_question
+  Output: |-
+    Verify x is not an integer by asking R if it is.
+  CorrectAnswer: "is.integer(x)"
+  AnswerTests: omnitest(correctExpr="is.integer(x)")
+  
+- Class: script
+  Output: |
+    Write a predicate function that tests if an object is integer valued.
+    
+    When you are done, you must SAVE the script file, then type submit() in the console.
+  AnswerTests: test_intval()
+  Hint: Integer values are all equivalent to 0 mod 1. You do not need any IF statements or LOOPS for this, it can be done in one line of code with one mathematical operator and one logical comparison.
+  Script: is_intval.R
+  
+# any() all()
+- Class: text
+  Output: |-
+    There are some other predicate functions which are very useful:
+    
+    any() tests if there exists any objects with the value TRUE in a vector.
+    
+    all() tests if all of the objects in a vector are TRUE.
+    
+    Pay special attention to the wording above. I chose my words very carefully, and it may come up later.
+
+- Class: text
+  Output: |-
+    I've defined the following objects for you:
+    
+    my_logi_all <- c(TRUE, TRUE, TRUE)
+    
+    my_logi_any <- c(FALSE, FALSE, TRUE, FALSE)
+    
+    my_logi_none <- c(FALSE, FALSE, FALSE)
+
+- Class: cmd_question
+  Output: |-
+    Call any() with argument my_logi_all
+  CorrectAnswer: "any(my_logi_all)"
+  AnswerTests: omnitest(correctExpr="any(my_logi_all)")
+  
+- Class: cmd_question
+  Output: |-
+    Call all() with argument my_logi_all
+  CorrectAnswer: "all(my_logi_all)"
+  AnswerTests: omnitest(correctExpr="all(my_logi_all)")
+
+- Class: cmd_question
+  Output: |-
+    Call any() with argument my_logi_any
+  CorrectAnswer: "any(my_logi_any)"
+  AnswerTests: omnitest(correctExpr="any(my_logi_any)")
+
+- Class: cmd_question
+  Output: |-
+    Call all() with argument my_logi_any
+  CorrectAnswer: "all(my_logi_any)"
+  AnswerTests: omnitest(correctExpr="all(my_logi_any)")
+
+- Class: text
+  Output: |-
+    You saw before that 1 <--> TRUE and 0 <--> FALSE.
+    
+    Think about how you might use arithmetic to create any() and all() functions...
+
+# any() all() with math
+- Class: script
+  Output: |
+    Write two predicate functions using arithmetic to replicate any() and all().
+    
+    Note: at this point you DO NOT need to concern yourself with NA's.
+  AnswerTests: test_anyall()
+  Hint: Think about how you would interpret sums and products of the values of a logical vector.
+  Script: anyall.R
+
+# subsetting
+- Class: text
+  Output: |-
+    The final thing we will discuss in the lesson for this chapter is using a logical vector to perform a subsetting operation.
+    
+    You should have an object v in your global environment. If you do not, use the play() function to enter free-play mode and run the lines:
+    
+    set.seed(123)
+    
+    v <- sample(100, 20, TRUE)
+    
+    to recreate v.
+
+- Class: cmd_question
+  Output: |-
+    Display the vector v below:
+  CorrectAnswer: "v"
+  AnswerTests: omnitest(correctExpr="v")
+  Hint: Type v then press enter.
+
+- Class: cmd_question
+  Output: |-
+    Select the subset of v where the values of v are less than 40.
+  CorrectAnswer: "v[v < 40]"
+  AnswerTests: omnitest(correctExpr="v[v < 40]")
+  Hint: In one line, you need to create a logical vector the same length as v, where the values of your subsetting vector are TRUE where the value of v is less than 40 and FALSE otherwise, AND use that vector to subset v.
+
+- Class: cmd_question
+  Output: |-
+    Next, set all of the values of v which are less than 40 to the value 40.
+  CorrectAnswer: "v[v < 40] <- 40"
+  AnswerTests: omnitest(correctExpr="v[v < 40] <- 40")
+  Hint: The same as before, but add the proper assignment.
+
+- Class: cmd_question
+  Output: |-
+    So, when we used index subsetting in the past, our resulting subset was the same length as our subsetting vector.
+    
+    e.g. If we did v[c(2, 3, 5)], the result would be length 3. But with logical subsetting, when we gave it a vector the same length as our target vector, the subset has a length which is the number of TRUE values in our logical subsetting vector.
+    
+    What happens though when we try to use a logical subsetting vector which is shorter than the length of our target vector?
+    
+    Type v[c(TRUE, FALSE)] below and see.
+  CorrectAnswer: "v[c(TRUE, FALSE)]"
+  AnswerTests: omnitest(correctExpr="v[c(TRUE, FALSE)]")
+  Hint: Just type v[c(TRUE, FALSE)]
+  
+- Class: cmd_question
+  Output: |-
+    The subsetting vector was recycled and we selected every other value of v.
+    
+    Now you know from class that when a vector partially recycles, that is when the length of the larger vector is not a multiple of the length of the shorter vector, R will proceed but give you a warning.
+  
+    Please type 1:10 + 1:3 below to verify this.
+  CorrectAnswer: "1:10 + 1:3"
+  AnswerTests: omnitest(correctExpr="1:10 + 1:3")
+  Hint: Just type v[1:10 + 1:3]
+  
+- Class: cmd_question
+  Output: |-
+    So, what should happen when we subset v, trying to get every third value?
+    
+    Type v[c(FALSE, FALSE, TRUE)] to find out.
+  CorrectAnswer: "v[c(FALSE, FALSE, TRUE)]"
+  AnswerTests: omnitest(correctExpr="v[c(FALSE, FALSE, TRUE)]")
+  Hint: Just type v[c(FALSE, FALSE, TRUE)]
+  
+- Class: text
+  Output: |-
+    The logical vector was partially recycled but R DID NOT issue a warning!
+    
+    It's not clear why it doesn't and this is the only place I have seen in R where this behaviour is exhibited.
+
+#- Class: mult_question
+#  Output: Would you like to submit the log of this lesson to Google Forms so that your instructor may evaluate your progress?
+#  AnswerChoices: Yes;No
+#  CorrectAnswer: NULL
+#  AnswerTests: submit_log()
+#  Hint: hint
+
