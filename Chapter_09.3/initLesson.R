@@ -16,13 +16,13 @@ tryCatch(stat_dir <- readLines("http://directory.stat.ucla.edu/faculty/all-facul
 
 .pathtofile <<- function(fileName){
   file.path(.get_course_path(),
-            "stats20_swirl", "Chapter_S3",
+            "stats20_swirl", "Chapter_09.3",
             fileName)
 }
 #.datapath <- file.path(.get_course_path(),
 #                       'stats20s19swirl', 'Week_2.2', 'data')
 .filepath <- file.path(.get_course_path(),
-                       "stats20_swirl", "Chapter_S3", 'files')
+                       "stats20_swirl", "Chapter_09.3", 'files')
 .files <- dir(.filepath)
  # if(!dir.exists("Week_4.1.c_Files")){
  #   dir.create("Week_4.1.c_Files")  
