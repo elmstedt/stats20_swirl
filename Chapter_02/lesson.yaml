@@ -142,14 +142,6 @@
   CorrectAnswer: "rep(seq(-2,2, 1), times = 1:5)"
   AnswerTests: omnitest(correctExpr="rep(seq(-2,2, 1), times = 1:5)")
 
-- Class: cmd_question
-  Output: |-
-    Lastly, rep() can repeat the elements of a vector a varying number of times.
-    
-    Enter 'rep(seq(-2,2, 1), times = 1:5)' below to see an example of this.
-  CorrectAnswer: "rep(seq(-2,2, 1), times = 1:5)"
-  AnswerTests: omnitest(correctExpr="rep(seq(-2,2, 1), times = 1:5)")
-
 # Vector functions
 # max(), min(), range()
 # diff(), cumsum()
