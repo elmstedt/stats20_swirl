@@ -78,29 +78,29 @@
   AnswerTests: omnitest(correctExpr = 'mode(iris)')
   Hint: "Type mode(iris) and press enter."
 
-- Class: text_question
-  Output: We see that a dataframe is stored as a list. What will you get if you run is.list(iris)?
-  CorrectAnswer: 'TRUE'
-  AnswerTests: val_matches('(?i)\\s*TRUE\\s*')
-
-- Class: cmd_question
-  Output: We can coerce a dataframe to a list by using the as.list() function. Coerce the iris dataset to a list.
-  CorrectAnswer: as.list(iris)
-  AnswerTests: omnitest(correctExpr = 'as.list(iris)')
-
-- Class: cmd_question
-  Output: The Professor said that lists are vectors (well rather generic vectors), what about data frames? Are they vectors too? Use the is.vector() function on the iris data set.
-  CorrectAnswer: is.vector(iris)
-  AnswerTests: omnitest(correctExpr = 'is.vector(iris)')
-
-- Class: cmd_question
-  Output: Now, test if the version of the iris data set after being coerced to a list object is a vector.
-  CorrectAnswer: is.vector(as.list(iris))
-  AnswerTests: omnitest(correctExpr = 'is.vector(as.list(iris))')
-  Hint: is.vector(as.list(...))
-
-- Class: text
-  Output: Do you see the difference? Even though a data frame has mode list, it is not a vector. So, common functions which work on a vector will not work on a data frame.
+# - Class: text_question
+#   Output: We see that a dataframe is stored as a list. What will you get if you run is.list(iris)?
+#   CorrectAnswer: 'TRUE'
+#   AnswerTests: val_matches('(?i)\\s*TRUE\\s*')
+# 
+# - Class: cmd_question
+#   Output: We can coerce a dataframe to a list by using the as.list() function. Coerce the iris dataset to a list.
+#   CorrectAnswer: as.list(iris)
+#   AnswerTests: omnitest(correctExpr = 'as.list(iris)')
+# 
+# - Class: cmd_question
+#   Output: The Professor said that lists are vectors (well rather generic vectors), what about data frames? Are they vectors too? Use the is.vector() function on the iris data set.
+#   CorrectAnswer: is.vector(iris)
+#   AnswerTests: omnitest(correctExpr = 'is.vector(iris)')
+# 
+# - Class: cmd_question
+#   Output: Now, test if the version of the iris data set after being coerced to a list object is a vector.
+#   CorrectAnswer: is.vector(as.list(iris))
+#   AnswerTests: omnitest(correctExpr = 'is.vector(as.list(iris))')
+#   Hint: is.vector(as.list(...))
+# 
+# - Class: text
+#   Output: Do you see the difference? Even though a data frame has mode list, it is not a vector. So, common functions which work on a vector will not work on a data frame.
 
 #- Class: text_question
 #  Output: You should know the difference between atomic and generic vectors. Generic vectors are recursive in nature. What is the result of is.atomic(as.list(iris))?
@@ -172,11 +172,11 @@
   AnswerTests: omnitest(correctExpr = 'class(stat_data)')
   Hint: Type class(stat_data) and press enter.
 
-- Class: cmd_question
-  Output: Coerce stat_data into a data.frame object and store the result in an object named stat_data2.
-  CorrectAnswer: stat_data2 <- as.data.frame(stat_data)
-  AnswerTests: omnitest(correctExpr = 'stat_data2 <- as.data.frame(stat_data)')
-  Hint: Type stat_data2 <- as.data.frame(stat_data) and press enter.
+# - Class: cmd_question
+#   Output: Coerce stat_data into a data.frame object and store the result in an object named stat_data2.
+#   CorrectAnswer: stat_data2 <- as.data.frame(stat_data)
+#   AnswerTests: omnitest(correctExpr = 'stat_data2 <- as.data.frame(stat_data)')
+#   Hint: Type stat_data2 <- as.data.frame(stat_data) and press enter.
   
 #- Class: cmd_question
 #  Output: Add a new variable to stat_data2 called name where the values are the same as the row name of the row.
@@ -193,27 +193,27 @@
 #  AnswerTests: any_of_exprs('row.names(stat_data2) <- NULL')
 #  Hint: Type row.names(stat_data2) <- NULL and press enter.
 
-- Class: cmd_question
-  Output: |-
-    Display stat_data2 below.
-  CorrectAnswer: stat_data2
-  AnswerTests: any_of_exprs('stat_data2')
-  Hint: Type stat_data2 and press enter.
+# - Class: cmd_question
+#   Output: |-
+#     Display stat_data2 below.
+#   CorrectAnswer: stat_data2
+#   AnswerTests: any_of_exprs('stat_data2')
+#   Hint: Type stat_data2 and press enter.
 
 - Class: cmd_question
   Output: |-
     Now, data.frame objects are matrix-like object, so we can often treat them like matrices.
     
-    Treat the stat_data2 object like a matrix and APPLY the mean function to each student.
-  CorrectAnswer: apply(stat_data2, 1, mean)
-  AnswerTests: any_of_exprs('apply(stat_data2, 1, mean)')
+    Treat the stat_data object like a matrix and APPLY the mean function to each student.
+  CorrectAnswer: apply(stat_data, 1, mean)
+  AnswerTests: any_of_exprs('apply(stat_data, 1, mean)')
   Hint: Apply the mean() function to each row of the data frame.
 
 - Class: cmd_question
   Output: |-
-    And now, treat the stat_data2 object like a matrix and APPLY the mean function to each class.
-  CorrectAnswer: apply(stat_data2, 2, mean)
-  AnswerTests: any_of_exprs('apply(stat_data2, 2, mean)')
+    And now, treat the stat_data object like a matrix and APPLY the mean function to each class.
+  CorrectAnswer: apply(stat_data, 2, mean)
+  AnswerTests: any_of_exprs('apply(stat_data, 2, mean)')
   Hint: Apply the mean() function to each column of the data frame.
 
 - Class: cmd_question
@@ -252,9 +252,9 @@
   Hint: Type lapply(contrived_list, max) and press enter.
 
 - Class: cmd_question
-  Output: Remember, data frames ARE lists. Treat the data frame stat_data2 as a list and APPLY the mean() function to each variable.
-  CorrectAnswer: lapply(stat_data2, mean)
-  AnswerTests: omnitest(correctExpr = 'lapply(stat_data2, mean)')
+  Output: Remember, data frames ARE lists. Treat the data frame stat_data as a list and APPLY the mean() function to each variable.
+  CorrectAnswer: lapply(stat_data, mean)
+  AnswerTests: omnitest(correctExpr = 'lapply(stat_data, mean)')
   Hint: Type lapply(stat_data2, mean) and press enter.
 
 - Class: text
@@ -270,9 +270,9 @@
     If the result is a list where every component is not a vector of the same length, then sapply() will return a list (i.e., the same output as from lapply().)
   
 - Class: cmd_question
-  Output: Treat the data frame stat_data2 as a list and APPLY the mean() function to each variable, but return a vector.  
+  Output: Treat the data frame stat_data as a list and APPLY the mean() function to each variable, but return a vector.  
   CorrectAnswer: sapply(stat_data2, mean)
-  AnswerTests: omnitest(correctExpr = 'sapply(stat_data2, mean)')
+  AnswerTests: omnitest(correctExpr = 'sapply(stat_data, mean)')
   Hint: Type sapply(stat_data2, mean) and press enter.
   
 - Class: cmd_question
