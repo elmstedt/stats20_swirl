@@ -17,6 +17,14 @@
   CorrectAnswer: View(iris)
   AnswerTests: omnitest(correctExpr = 'View(iris)')
 
+- Class: text
+  Output: |-
+    View() is incredibly useful for inspecting R objects which would otherwise be difficult to see.
+    
+    That said, you must never, ever, EVER, use View() in a non-interactive context.
+    
+    (e.g. DO NOT use View() in your .Rmd files!)
+    
 - Class: cmd_question
   Output: |-
     The command above shows us the whole dataset in the editors' pane. What if we just needed to view the first 10 observations?
